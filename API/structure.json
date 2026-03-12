@@ -1,8 +1,8 @@
 [
 	{
-		"login": "Shcherbakov_Dmitriy_Igorevich",
+		"login": "Shcherbakov_Dmitriy_Igorevich1",
 		"setup": {
-			"timeReg": "",
+			"timeReg": 1,
 			"URLCLIENT": "0",
 			"NameCompitition": "Название ваших соревнований по плаванию.",
 			"NameTitle": "Соревнования по плаванию | Competitive Swimming",
@@ -33,11 +33,220 @@
 		]
 	},
 	{
-		"login": "qqqqqqqqqq",
+		"login": "One_1",
 		"setup": {
-			"timeReg": 1772826432785,
+			"timeReg": 1,
 			"URLCLIENT": 1,
 			"NameCompitition": "Чемпионат России по плаванию",
+			"NameTitle": "Соревнования по плаванию | Competitive Swimming",
+			"Info": "Дополнительная информация при необходимости.",
+			"Lines": "1",
+			"ShowDate": "true",
+			"ShowTeam": "true",
+			"ShowTime": "true",
+			"UseGroup": "true",
+			"UseCategory": "true",
+			"UseUpRung": "true",
+			"DistancePosition": []
+		},
+		"sportsmens": []
+	},
+	{
+		"login": "Tw0_2",
+		"setup": {
+			"timeReg": 1,
+			"URLCLIENT": 2,
+			"NameCompitition": "Название ваших соревнований по плаванию.",
+			"NameTitle": "Соревнования по плаванию | Competitive Swimming",
+			"Info": "Дополнительная информация при необходимости.",
+			"Lines": "1",
+			"ShowDate": "true",
+			"ShowTeam": "true",
+			"ShowTime": "true",
+			"UseGroup": "true",
+			"UseCategory": "true",
+			"UseUpRung": "true",
+			"DistancePosition": []
+		},
+		"sportsmens": []
+	},
+	{
+		"login": "Three_er",
+		"setup": {
+			"timeReg": 1,
+			"URLCLIENT": 3,
+			"NameCompitition": "Название ваших соревнований по плаванию.",
+			"NameTitle": "Соревнования по плаванию | Competitive Swimming",
+			"Info": "Дополнительная информация при необходимости.",
+			"Lines": "1",
+			"ShowDate": "true",
+			"ShowTeam": "true",
+			"ShowTime": "true",
+			"UseGroup": "true",
+			"UseCategory": "true",
+			"UseUpRung": "true",
+			"DistancePosition": []
+		},
+		"sportsmens": []
+	},
+	{
+		"login": "Four_you",
+		"setup": {
+			"timeReg": 1,
+			"URLCLIENT": 4,
+			"NameCompitition": "Название ваших соревнований по плаванию.",
+			"NameTitle": "Соревнования по плаванию | Competitive Swimming",
+			"Info": "Дополнительная информация при необходимости.",
+			"Lines": "1",
+			"ShowDate": "true",
+			"ShowTeam": "true",
+			"ShowTime": "true",
+			"UseGroup": "true",
+			"UseCategory": "true",
+			"UseUpRung": "true",
+			"DistancePosition": []
+		},
+		"sportsmens": []
+	},
+	{
+		"login": "Five5",
+		"setup": {
+			"timeReg": 1,
+			"URLCLIENT": 5,
+			"NameCompitition": "Название ваших соревнований по плаванию.",
+			"NameTitle": "Соревнования по плаванию | Competitive Swimming",
+			"Info": "Дополнительная информация при необходимости.",
+			"Lines": "1",
+			"ShowDate": "true",
+			"ShowTeam": "true",
+			"ShowTime": "true",
+			"UseGroup": "true",
+			"UseCategory": "true",
+			"UseUpRung": "true",
+			"DistancePosition": []
+		},
+		"sportsmens": []
+	},
+	{
+		"login": "5ix_p",
+		"setup": {
+			"timeReg": 1,
+			"URLCLIENT": 6,
+			"NameCompitition": "Название ваших соревнований по плаванию.",
+			"NameTitle": "Соревнования по плаванию | Competitive Swimming",
+			"Info": "Дополнительная информация при необходимости.",
+			"Lines": "1",
+			"ShowDate": "true",
+			"ShowTeam": "true",
+			"ShowTime": "true",
+			"UseGroup": "true",
+			"UseCategory": "true",
+			"UseUpRung": "true",
+			"DistancePosition": []
+		},
+		"sportsmens": []
+	},
+	{
+		"login": "Seven_007",
+		"setup": {
+			"timeReg": 1,
+			"URLCLIENT": 7,
+			"NameCompitition": "Название ваших соревнований по плаванию.",
+			"NameTitle": "Соревнования по плаванию | Competitive Swimming",
+			"Info": "Дополнительная информация при необходимости.",
+			"Lines": "1",
+			"ShowDate": "true",
+			"ShowTeam": "true",
+			"ShowTime": "true",
+			"UseGroup": "true",
+			"UseCategory": "true",
+			"UseUpRung": "true",
+			"DistancePosition": []
+		},
+		"sportsmens": []
+	},
+	{
+		"login": "Eight888",
+		"setup": {
+			"timeReg": 1,
+			"URLCLIENT": 8,
+			"NameCompitition": "Название ваших соревнований по плаванию.",
+			"NameTitle": "Соревнования по плаванию | Competitive Swimming",
+			"Info": "Дополнительная информация при необходимости.",
+			"Lines": "1",
+			"ShowDate": "true",
+			"ShowTeam": "true",
+			"ShowTime": "true",
+			"UseGroup": "true",
+			"UseCategory": "true",
+			"UseUpRung": "true",
+			"DistancePosition": []
+		},
+		"sportsmens": []
+	},
+	{
+		"login": "NineNine9",
+		"setup": {
+			"timeReg": 1,
+			"URLCLIENT": 9,
+			"NameCompitition": "Название ваших соревнований по плаванию.",
+			"NameTitle": "Соревнования по плаванию | Competitive Swimming",
+			"Info": "Дополнительная информация при необходимости.",
+			"Lines": "1",
+			"ShowDate": "true",
+			"ShowTeam": "true",
+			"ShowTime": "true",
+			"UseGroup": "true",
+			"UseCategory": "true",
+			"UseUpRung": "true",
+			"DistancePosition": []
+		},
+		"sportsmens": []
+	},
+	{
+		"login": "Ten0neT",
+		"setup": {
+			"timeReg": 1,
+			"URLCLIENT": 10,
+			"NameCompitition": "Название ваших соревнований по плаванию.",
+			"NameTitle": "Соревнования по плаванию | Competitive Swimming",
+			"Info": "Дополнительная информация при необходимости.",
+			"Lines": "1",
+			"ShowDate": "true",
+			"ShowTeam": "true",
+			"ShowTime": "true",
+			"UseGroup": "true",
+			"UseCategory": "true",
+			"UseUpRung": "true",
+			"DistancePosition": []
+		},
+		"sportsmens": []
+	},
+	{
+		"login": "Eleven_1_1_",
+		"setup": {
+			"timeReg": 1,
+			"URLCLIENT": 11,
+			"NameCompitition": "Название ваших соревнований по плаванию.",
+			"NameTitle": "Соревнования по плаванию | Competitive Swimming",
+			"Info": "Дополнительная информация при необходимости.",
+			"Lines": "1",
+			"ShowDate": "true",
+			"ShowTeam": "true",
+			"ShowTime": "true",
+			"UseGroup": "true",
+			"UseCategory": "true",
+			"UseUpRung": "true",
+			"DistancePosition": []
+		},
+		"sportsmens": []
+	},
+	{
+		"login": "12Twelve12",
+		"setup": {
+			"timeReg": 1,
+			"URLCLIENT": 12,
+			"NameCompitition": "Название ваших соревнований по плаванию.",
 			"NameTitle": "Соревнования по плаванию | Competitive Swimming",
 			"Info": "Дополнительная информация при необходимости.",
 			"Lines": "1",
