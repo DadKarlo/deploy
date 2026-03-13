@@ -576,7 +576,17 @@ app.post('/usesport', (req, res) => {
 		for (let i = 0; i < unik.length; i++) {
 			const zapliv = user.sportsmens.filter((u) => u.ids === i + 1)
 
-			zapliv.sort((a, d) => Number(a.TimeStart) - Number(d.TimeStart))
+			// zapliv.sort((a, d) => Number(a.TimeStart) - Number(d.TimeStart))
+			zapliv.sort((a, d) => {
+				const aNoTime = a.TimeStart === '000000'
+				const dNoTime = d.TimeStart === '000000'
+				if (aNoTime && !dNoTime) return 1
+				if (!aNoTime && dNoTime) return -1
+				if (!aNoTime && !dNoTime) {
+					return Number(a.TimeStart) - Number(d.TimeStart)
+				}
+				return 0
+			})
 			//sorted
 
 			const rung = roadsADD(zapliv, linesClient)
@@ -663,7 +673,17 @@ app.post('/usesport', (req, res) => {
 		for (let i = 0; i < unik.length; i++) {
 			const zapliv = user.sportsmens.filter((u) => u.ids === i + 1)
 
-			zapliv.sort((a, d) => Number(a.TimeStart) - Number(d.TimeStart))
+			// zapliv.sort((a, d) => Number(a.TimeStart) - Number(d.TimeStart))
+			zapliv.sort((a, d) => {
+				const aNoTime = a.TimeStart === '000000'
+				const dNoTime = d.TimeStart === '000000'
+				if (aNoTime && !dNoTime) return 1
+				if (!aNoTime && dNoTime) return -1
+				if (!aNoTime && !dNoTime) {
+					return Number(a.TimeStart) - Number(d.TimeStart)
+				}
+				return 0
+			})
 			//sorted
 
 			const rung = roadsADD(zapliv, linesClient)
@@ -756,7 +776,17 @@ app.post('/usesport', (req, res) => {
 		for (let i = 0; i < unik.length; i++) {
 			const zapliv = user.sportsmens.filter((u) => u.ids === i + 1)
 
-			zapliv.sort((a, d) => Number(a.TimeStart) - Number(d.TimeStart))
+			// zapliv.sort((a, d) => Number(a.TimeStart) - Number(d.TimeStart))
+			zapliv.sort((a, d) => {
+				const aNoTime = a.TimeStart === '000000'
+				const dNoTime = d.TimeStart === '000000'
+				if (aNoTime && !dNoTime) return 1
+				if (!aNoTime && dNoTime) return -1
+				if (!aNoTime && !dNoTime) {
+					return Number(a.TimeStart) - Number(d.TimeStart)
+				}
+				return 0
+			})
 			//sorted
 
 			const rung = roadsADD(zapliv, linesClient)
@@ -832,7 +862,17 @@ app.post('/usesport', (req, res) => {
 		for (let i = 0; i < unik.length; i++) {
 			const zapliv = user.sportsmens.filter((u) => u.ids === i + 1)
 
-			zapliv.sort((a, d) => Number(a.TimeStart) - Number(d.TimeStart))
+			// zapliv.sort((a, d) => Number(a.TimeStart) - Number(d.TimeStart))
+			zapliv.sort((a, d) => {
+				const aNoTime = a.TimeStart === '000000'
+				const dNoTime = d.TimeStart === '000000'
+				if (aNoTime && !dNoTime) return 1
+				if (!aNoTime && dNoTime) return -1
+				if (!aNoTime && !dNoTime) {
+					return Number(a.TimeStart) - Number(d.TimeStart)
+				}
+				return 0
+			})
 			//sorted
 
 			const rung = roadsADD(zapliv, linesClient)
