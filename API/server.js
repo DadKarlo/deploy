@@ -288,7 +288,7 @@ app.post('/timefin', (req, res) => {
 
 	if (!swimmer) return res.status(400).json({ error: 'Error 400' })
 	if (!isNaN(client.TimeFinish)) {
-		swimmer.TimeFinish = client.TimeFinish
+		swimmer.TimeFinish = client.TimeFinish === '000000' ? '' : client.TimeFinish
 	}
 
 	// console.log(client)
