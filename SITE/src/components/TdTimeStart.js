@@ -12,5 +12,5 @@ export default function TdTimeStart(props) {
 	const SS = timeS?.TimeStart?.slice(2, 4)
 	const MS = timeS?.TimeStart?.slice(4, 6)
 
-	return <>{timeS ? `${MM}:${SS}.${MS}` : ''}</>
+	return <>{timeS?.TimeStart === '000000' ? 'NT' : `${MM}:${SS}.${MS}`}</>
 }

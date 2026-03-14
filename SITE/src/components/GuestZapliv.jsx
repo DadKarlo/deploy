@@ -149,9 +149,15 @@ export default function GuestZapliv(props) {
 															{/* РАЗДЕЛИТЕЛЬ */}
 															{data?.setup?.ShowTime === 'true' && (
 																<td style={{ fontSize: '0.45rem' }}>
-																	{item?.TimeStart?.slice(0, 2)}:
-																	{item?.TimeStart?.slice(2, 4)}.
-																	{item?.TimeStart?.slice(4, 6)}
+																	{item?.TimeStart === '000000' ? (
+																		'NT'
+																	) : (
+																		<>
+																			{item?.TimeStart?.slice(0, 2)}:
+																			{item?.TimeStart?.slice(2, 4)}.
+																			{item?.TimeStart?.slice(4, 6)}
+																		</>
+																	)}
 																</td>
 															)}
 															<td style={{ fontSize: '0.5rem' }}> </td>
