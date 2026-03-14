@@ -87,7 +87,7 @@ export default function ShowUserFinish(props) {
 												fontSize: '0.7rem',
 											}}
 										>
-											<div style={{ width: '80%' }}>
+											<div style={{ width: '80%', maxWidth: '500px' }}>
 												{data?.sportsmens
 													?.filter(
 														(el) =>
@@ -134,7 +134,13 @@ export default function ShowUserFinish(props) {
 														el.category === item2.category,
 												)
 												.find((u) => u.TimeFinish !== '') && (
-												<table style={{ width: '70%', marginBottom: '10px' }}>
+												<table
+													style={{
+														width: '90%',
+														maxWidth: '400px',
+														marginBottom: '10px',
+													}}
+												>
 													<thead>
 														<tr key={item2.id}>
 															<th style={{ fontSize: '0.55rem' }}>
