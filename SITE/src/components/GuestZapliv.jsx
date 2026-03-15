@@ -77,7 +77,7 @@ export default function GuestZapliv(props) {
 												textAlign: 'left',
 											}}
 										>
-											{!!props.enru ? 'Session' : 'Заплыв'} № {itemZ.idz}
+											{!!props.enru ? 'Heat' : 'Заплыв'} № {itemZ.idz}
 										</div>
 										<table>
 											<thead>
