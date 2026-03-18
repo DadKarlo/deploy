@@ -44,7 +44,7 @@ app.post('/login', (req, res) => {
 				URLCLIENT: sport.length,
 				NameCompitition: 'Название ваших соревнований по плаванию.',
 				NameTitle: 'Соревнования по плаванию | Competitive Swimming',
-				Info: 'Дополнительная информация при необходимости.',
+				Info: 'Информация',
 				Lines: '1',
 				ShowDate: 'true',
 				ShowTeam: 'true',
