@@ -57,7 +57,7 @@ export default function TdInput(props) {
 		}
 		timeoutInputChangeFocus = setTimeout(() => {
 			setIsFocus(false)
-		}, 10000)
+		}, 5000)
 	}
 
 	return (
@@ -65,9 +65,9 @@ export default function TdInput(props) {
 			<input
 				name="lastname"
 				type="text"
-				pattern="[A-Za-zА-ЯЁа-яё]{1,25}"
+				pattern="[A-Za-zА-ЯЁа-яё\s]{1,50}"
 				title={'Можно использовать A-z и А-я'}
-				maxLength={25}
+				maxLength={50}
 				size={10}
 				onFocus={onFocusir}
 				onClick={onFocusir}
@@ -75,7 +75,7 @@ export default function TdInput(props) {
 				value={!isFocus ? Lastname : copyLastname}
 				onChange={handlChangeLastname}
 			/>{' '}
-			<input
+			{/* <input
 				name="firstname"
 				type="text"
 				pattern="[A-Za-zА-ЯЁа-яё]{1,25}"
@@ -87,7 +87,7 @@ export default function TdInput(props) {
 				onBlur={submitName}
 				value={!isFocus ? Firstname : copyFirstname}
 				onChange={handlChangeFirstname}
-			/>
+			/> */}
 		</>
 	)
 }

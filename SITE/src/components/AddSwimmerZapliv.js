@@ -142,15 +142,15 @@ export default function AddSwimmerZ(props) {
 					<input
 						type="text"
 						name="lastname"
-						pattern="[A-Za-zА-ЯЁа-яё]{1,25}"
+						pattern="[A-Za-zА-ЯЁа-яё\s]{1,50}"
 						title={'Можно использовать A-z и А-я'}
-						maxLength={25}
+						maxLength={50}
 						value={lastname}
 						onChange={handleCangeLastname}
-						placeholder={!!props.enru ? 'Lastname' : 'Фамилия участника'}
+						placeholder={!!props.enru ? 'Name' : 'ФИО участника'}
 						required
 					/>
-					<input
+					{/* <input
 						type="text"
 						name="firstname"
 						pattern="[A-Za-zА-ЯЁа-яё]{1,25}"
@@ -159,9 +159,9 @@ export default function AddSwimmerZ(props) {
 						value={firstname}
 						onChange={handleCangeFirstname}
 						placeholder={!!props.enru ? 'Firstname' : 'Имя участника'}
-					/>
+					/> */}
 					<input
-						type="date"
+						type="text"
 						name="birthday"
 						value={birthday}
 						onChange={handleCangeBirthday}

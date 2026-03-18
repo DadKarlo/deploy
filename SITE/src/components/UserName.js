@@ -45,15 +45,15 @@ function UserName(props) {
 				}}
 				type="text"
 				name="lastname"
-				pattern="[A-Za-zА-ЯЁа-яё\s]{1,25}"
+				pattern="[A-Za-zА-ЯЁа-яё\s]{1,50}"
 				title={'Можно использовать A-z и А-я'}
-				maxLength={25}
+				maxLength={50}
 				value={lastname}
 				onChange={handleCangeLastname}
-				placeholder={!!props.enru ? 'Lastname' : 'Фамилия участника'}
+				placeholder={!!props.enru ? 'Name' : 'ФИО участника'}
 				required
 			/>
-			<input
+			{/* <input
 				style={{
 					padding: '3px',
 					border: '1px solid',
@@ -72,7 +72,7 @@ function UserName(props) {
 				value={firstname}
 				onChange={handleCangeFirstname}
 				placeholder={!!props.enru ? 'Firstname' : 'Имя участника'}
-			/>
+			/> */}
 
 			<input
 				style={{
