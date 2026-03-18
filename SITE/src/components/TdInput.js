@@ -68,7 +68,7 @@ export default function TdInput(props) {
 				pattern="[A-Za-zА-ЯЁа-яё\s]{1,50}"
 				title={'Можно использовать A-z и А-я'}
 				maxLength={50}
-				size={10}
+				style={{ width: '100%' }}
 				onFocus={onFocusir}
 				onClick={onFocusir}
 				onBlur={submitName}
