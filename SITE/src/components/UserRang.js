@@ -48,10 +48,10 @@ function UserRang(props) {
 				<option value={!!props.enru ? `Women's` : 'Женщины'}>
 					{!!props.enru ? `Women's` : 'Женщины'}
 				</option>
-				<option value={!!props.enru ? `Girls` : 'Девушки'}>
+				<option value={!!props.enru ? `Girls` : 'Девочки'}>
 					{!!props.enru ? `Girls` : 'Девушки'}
 				</option>
-				<option value={!!props.enru ? `Boys` : 'Юниоры'}>
+				<option value={!!props.enru ? `Boys` : 'Мальчики'}>
 					{!!props.enru ? `Boys` : 'Юниоры'}
 				</option>
 				<option value={!!props.enru ? `Other` : 'Другое'}>
