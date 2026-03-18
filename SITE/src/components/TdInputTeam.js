@@ -59,7 +59,7 @@ export default function TdInputTeam(props) {
 			pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,20}"
 			title={'Можно использовать A-z и А-я, символы: - , . ( )'}
 			maxLength={20}
-			style={{ width: '100%' }}
+			size={7}
 			onFocus={onFocusir}
 			onClick={onFocusir}
 			value={!isFocus ? Team : copyTeam}
