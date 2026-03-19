@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Запрещаем индексацию служебных путей
+Disallow: /api/
+Disallow: /static/
+Disallow: /admin/
+Disallow: /node_modules/
+
+# Карта сайта (указывается один раз, в конце)
+Sitemap: https://swim-start.ru/sitemap.xml
+
+# Правила для Яндекса
+User-agent: Yandex
+Host: https://swim-start.ru
