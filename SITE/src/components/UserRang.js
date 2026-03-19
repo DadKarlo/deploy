@@ -48,11 +48,11 @@ function UserRang(props) {
 				<option value={!!props.enru ? `Women's` : 'Женщины'}>
 					{!!props.enru ? `Women's` : 'Женщины'}
 				</option>
-				<option value={!!props.enru ? `Girls` : 'Девочки'}>
-					{!!props.enru ? `Girls` : 'Девочки'}
+				<option value={!!props.enru ? `Girls` : 'Девушки'}>
+					{!!props.enru ? `Girls` : 'Девушки'}
 				</option>
-				<option value={!!props.enru ? `Boys` : 'Мальчики'}>
-					{!!props.enru ? `Boys` : 'Мальчики'}
+				<option value={!!props.enru ? `Boys` : 'Юноши'}>
+					{!!props.enru ? `Boys` : 'Юноши'}
 				</option>
 				<option value={!!props.enru ? `Other` : 'Другое'}>
 					{!!props.enru ? `Other` : 'Другое'}
@@ -72,7 +72,9 @@ function UserRang(props) {
 				type="text"
 				name="category"
 				pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,20}"
-				title={'Можно использовать A-z и А-я, символы: - , . ( )'}
+				title={
+					'При необходимости разделить Участников в протоколах. Можно использовать A-z и А-я, символы: - , . ( )'
+				}
 				maxLength={20}
 				value={category}
 				onChange={handleCangeCategory}
@@ -92,7 +94,9 @@ function UserRang(props) {
 				type="text"
 				name="group"
 				pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,20}"
-				title={'Можно использовать A-z и А-я, символы: - , . ( )'}
+				title={
+					'При необходимости разделить Участников в протоколах. Можно использовать A-z и А-я, символы: - , . ( )'
+				}
 				maxLength={20}
 				value={group}
 				onChange={handleCangeGroup}
