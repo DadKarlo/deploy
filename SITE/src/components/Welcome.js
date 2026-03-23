@@ -79,7 +79,9 @@ export default function Welcome(props) {
 					maxLength={110}
 					title={'Введите от 10 до 100 английских симовлов!'}
 					required
-					placeholder={!!props.enru ? 'Login Name' : 'Введите название'}
+					placeholder={
+						!!props.enru ? 'Login Name' : 'Введите или создайте логин'
+					}
 				/>
 				<button
 					style={{
