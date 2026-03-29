@@ -300,7 +300,7 @@ export default function ShowZayvka(props) {
 									])
 								}
 							>
-								{!!props.enru ? `Nane ⬆ ` : 'ФИО ⬆ '}
+								{!!props.enru ? ` ⬆ ` : ' ⬆ '}
 							</button>
 							{/*  */}
 							<button
@@ -347,7 +347,7 @@ export default function ShowZayvka(props) {
 									])
 								}
 							>
-								{!!props.enru ? `Date ⬆ ` : 'Дата ⬆ '}
+								{!!props.enru ? ` ⬆ ` : ' ⬆ '}
 							</button>
 							{/*  */}
 							<button
@@ -394,7 +394,7 @@ export default function ShowZayvka(props) {
 									])
 								}
 							>
-								{!!props.enru ? `Team ⬆ ` : 'Команда ⬆ '}
+								{!!props.enru ? ` ⬆ ` : ' ⬆ '}
 							</button>
 							{/*  */}
 							<button
@@ -441,7 +441,7 @@ export default function ShowZayvka(props) {
 									])
 								}
 							>
-								{!!props.enru ? `Sex ⬆ ` : 'Пол ⬆ '}
+								{!!props.enru ? ` ⬆ ` : ' ⬆ '}
 							</button>
 							{/*  */}
 							<button
@@ -488,7 +488,7 @@ export default function ShowZayvka(props) {
 									])
 								}
 							>
-								{!!props.enru ? `Distance ⬆ ` : 'Дистанция ⬆ '}
+								{!!props.enru ? ` ⬆ ` : ' ⬆ '}
 							</button>
 							{/*  */}
 						</div>
