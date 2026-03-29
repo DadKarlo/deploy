@@ -227,6 +227,11 @@ export default function ShowZayvka(props) {
 					{!!props.enru ? 'update' : 'обновить'}
 				</button>
 			</h6>
+			<h6 style={{ fontSize: '0.55rem' }}>
+				{!!props.enru
+					? '++'
+					: 'Обновите для удаления старой (блокировка формы) и создания новой ссылки.'}
+			</h6>
 			<button
 				onClick={() => setshowUser((i) => !i)}
 				style={{
