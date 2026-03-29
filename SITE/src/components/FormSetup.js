@@ -49,7 +49,7 @@ function FormSetup(props) {
 						setIsErr('')
 					}, 1970)
 				}
-				// throw new Error('Ошибка сети или сервера')
+				throw new Error('Ошибка сети или сервера')
 			}
 			// const result = await res.json()
 			// console.log(result)

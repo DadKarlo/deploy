@@ -42,11 +42,11 @@ function UserRang(props) {
 				value={sex}
 				onChange={handleCangeSex}
 			>
-				<option value={!!props.enru ? `Man's` : 'Мужчины'}>
-					{!!props.enru ? `Man's` : 'Мужчины'}
+				<option value={!!props.enru ? 'Men' : 'Мужчины'}>
+					{!!props.enru ? 'Men' : 'Мужчины'}
 				</option>
-				<option value={!!props.enru ? `Women's` : 'Женщины'}>
-					{!!props.enru ? `Women's` : 'Женщины'}
+				<option value={!!props.enru ? 'Women' : 'Женщины'}>
+					{!!props.enru ? 'Women' : 'Женщины'}
 				</option>
 				<option value={!!props.enru ? `Girls` : 'Девушки'}>
 					{!!props.enru ? `Girls` : 'Девушки'}

@@ -19,7 +19,7 @@ function FormUser(props) {
 
 	const [sex, setSex] = useState('Мужчины') //ranging
 	useEffect(() => {
-		!!props.enru ? setSex(`Man's`) : setSex('Мужчины')
+		!!props.enru ? setSex('Men') : setSex('Мужчины')
 	}, [props.enru])
 
 	const [category, setCategory] = useState('') //ranging
