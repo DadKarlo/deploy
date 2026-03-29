@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import Home from './Home'
 import Guest from './Guest'
 import { API_site } from '../API_URL'
+import ShowZayvka from './ShowZayvka'
 
 export default function Components(props) {
 	const [www, setWww] = useState(null)
@@ -94,7 +95,7 @@ export default function Components(props) {
 							{guest + '/' + JSON.parse(www)?.setup?.URLCLIENT}
 						</a>
 					</h5>
-					<br />
+					<ShowZayvka enru={props.enru} www={www} web={web} />
 					<Home www={www} web={web} sse={setSse} enru={props.enru} />
 				</>
 			)}

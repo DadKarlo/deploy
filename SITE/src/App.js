@@ -4,6 +4,7 @@ import Welcome from './components/Welcome'
 import './App.css'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Components from './components/Components'
+import AddZayvka from './components/AddZayvka'
 
 // const url = new URL(document.URL)
 // console.log(url.pathname)
@@ -60,6 +61,7 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Welcome enru={lenguageRU} />} />
 						<Route path="/:id" element={<Components enru={lenguageRU} />} />
+						<Route path="/:id/:res" element={<AddZayvka enru={lenguageRU} />} />
 						<Route path="*" element={<Navigate to="/" />} />
 					</Routes>
 				</div>

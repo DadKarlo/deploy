@@ -54,6 +54,8 @@ app.post('/login', (req, res) => {
 				UseUpRung: 'true',
 				DistancePosition: [],
 			},
+			FormURL: randomUUID().slice(0, 7),
+			zayvka: [],
 			sportsmens: [],
 		})
 		// console.log('post')
@@ -385,6 +387,82 @@ app.post('/adduser', (req, res) => {
 	// console.log(client)
 	res.status(201).json({ message: 'OK' })
 }) //Set User Name and Team
+
+app.post('/zayvka', (req, res) => {
+	if (!req.body) return res.status(400).json({ error: 'Error 400' })
+	const id = req?.body?.id
+	const control = req?.body.control
+	const client = req?.body
+	const user = sport[id]
+
+	if (user && control === user.FormURL) {
+		if (client.distance1 !== '') {
+			user.zayvka.push({
+				id: randomUUID(),
+				lastname: client.lastname,
+				birthday: client.birthday,
+				team: client.team,
+				sex: client.sex,
+				distance: client.distance1,
+				TimeStart: client.TimeStart1,
+				firstname: '',
+				group: '',
+				category: '',
+			})
+		} // 1 push
+		if (client.distance2 !== '') {
+			user.zayvka.push({
+				id: randomUUID(),
+				lastname: client.lastname,
+				birthday: client.birthday,
+				team: client.team,
+				sex: client.sex,
+				distance: client.distance2,
+				TimeStart: client.TimeStart2,
+				firstname: '',
+				group: '',
+				category: '',
+			})
+		} // 2 push
+		if (client.distance1 === '' && client.distance2 === '') {
+			return res.status(400).json({ error: 'Error 400' })
+		}
+	} else {
+		return res.status(400).json({ error: 'Error 400' })
+	}
+
+	res.status(201).json({ message: 'OK' })
+}) //form zayvka
+
+app.post('/formclik', (req, res) => {
+	if (!req.body) return res.status(400).json({ error: 'Error 400' })
+	const id = req?.body?.id
+	// const client = req?.body
+	const user = sport[id]
+
+	if (user) {
+		user.FormURL = randomUUID().slice(0, 7)
+	}
+
+	res.status(201).json({ message: 'OK' })
+}) //formclik
+
+app.post('/delzayv', async (req, res) => {
+	if (!req.body) return res.status(400).json({ error: 'Error 400' })
+	const id = req?.body?.id
+	const client = req?.body
+	const user = sport.find((i) => i.login === id)
+	const swimmer = user.zayvka.find((i) => i.id === client.idUser)
+
+	if (!swimmer) return res.status(400).json({ error: 'Error 400' })
+
+	const swimID = user.zayvka.findIndex((swimm) => swimm.id === client.idUser)
+	if (swimID !== -1) {
+		user.zayvka.splice(swimID, 1)
+	}
+
+	res.status(201).json({ message: 'OK' })
+}) //delite userswim
 
 app.post('/usesport', (req, res) => {
 	if (!req.body) return res.status(400).json({ error: 'Error 400' })
