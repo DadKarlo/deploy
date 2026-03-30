@@ -113,7 +113,7 @@ export default function AddZayvka(props) {
 				>
 					{!!props.enru
 						? 'Registration of athletes' //===========================
-						: 'Формы регистрации участника отсутствует!'}
+						: 'Формы нет! Регистрация участника отсутствует!'}
 				</div>
 			) : (
 				<form
