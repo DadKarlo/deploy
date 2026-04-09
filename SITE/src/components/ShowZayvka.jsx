@@ -629,11 +629,11 @@ export default function ShowZayvka(props) {
 											<option value={!!props.enru ? `Women` : 'Женщины'}>
 												{!!props.enru ? `Women` : 'Женщины'}
 											</option>
-											<option value={!!props.enru ? `Girls` : 'Девочки'}>
-												{!!props.enru ? `Girls` : 'Девочки'}
+											<option value={!!props.enru ? `Girls` : 'Девушки'}>
+												{!!props.enru ? `Girls` : 'Девушки'}
 											</option>
-											<option value={!!props.enru ? `Boys` : 'Мальчики'}>
-												{!!props.enru ? `Boys` : 'Мальчики'}
+											<option value={!!props.enru ? `Boys` : 'Юноши'}>
+												{!!props.enru ? `Boys` : 'Юноши'}
 											</option>
 											<option value={!!props.enru ? `Other` : 'Другое'}>
 												{!!props.enru ? `Other` : 'Другое'}
