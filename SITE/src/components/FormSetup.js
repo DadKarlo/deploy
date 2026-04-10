@@ -34,7 +34,7 @@ function FormSetup(props) {
 				body: JSON.stringify({
 					id: props.web,
 					NameCompitition,
-					NameTitle,
+					NameTitle: NameCompitition,
 					Info,
 					ShowDate,
 					ShowTeam,

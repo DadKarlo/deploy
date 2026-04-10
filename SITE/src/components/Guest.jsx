@@ -7,6 +7,12 @@ function Guest(props) {
 	const [data, setData] = useState([])
 
 	useEffect(() => {
+		if (props.www) {
+			setData(JSON.parse(props.www))
+		}
+	}, [props.www])
+
+	useEffect(() => {
 		if (data?.setup?.NameTitle) {
 			if (data?.setup?.NameTitle !== ''.trim()) {
 				document.title = `${data?.setup?.NameTitle}`

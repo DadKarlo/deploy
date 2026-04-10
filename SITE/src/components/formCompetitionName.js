@@ -42,6 +42,7 @@ function FormCompetitionName(props) {
 					marginBottom: '0.4rem',
 					textAlign: 'center',
 				}}
+				hidden
 				type="text"
 				maxLength={100}
 				value={props.NameTitle}
