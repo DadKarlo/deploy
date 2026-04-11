@@ -54,7 +54,7 @@ function UserRang(props) {
 				<option value={!!props.enru ? `Boys` : 'Юноши'}>
 					{!!props.enru ? `Boys` : 'Юноши'}
 				</option>
-				<option value={!!props.enru ? `Other` : 'Другое'}>
+				<option value={!!props.enru ? ` ` : ' '}>
 					{!!props.enru ? `Other` : 'Другое'}
 				</option>
 			</select>

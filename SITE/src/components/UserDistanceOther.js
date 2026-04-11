@@ -51,8 +51,8 @@ function UserDistanceOther(props) {
 				}}
 				type="text"
 				name="addistOther"
-				pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,20}"
-				maxLength={20}
+				pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,100}"
+				maxLength={100}
 				value={addistOther}
 				onChange={handleCangeAddistOther}
 				placeholder={!!props.enru ? 'Distance... *' : 'Дистанция... *'}
