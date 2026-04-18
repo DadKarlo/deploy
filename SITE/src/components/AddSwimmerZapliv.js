@@ -1,5 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { API_site } from '../API_URL'
+import {
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogTitle,
+	IconButton,
+} from '@mui/material'
+import { Close } from '@mui/icons-material'
 
 export default function AddSwimmerZ(props) {
 	const cat = props.data?.setup?.UseCategory
@@ -121,36 +130,60 @@ export default function AddSwimmerZ(props) {
 		setIsLoading(false)
 	}
 
-	const [AddSwimmButton, setAddSwimButton] = useState(true)
+	const [AddSwimmButton, setAddSwimButton] = useState(false)
 	//props
 
 	return (
 		<>
-			<button
+			<Button
 				style={{
 					color: 'darkgreen',
 					backgroundColor: 'white',
 					padding: '1px 3px 1px 3px',
 					borderRadius: '4px',
 				}}
-				onClick={() => setAddSwimButton((i) => !i)}
+				onClick={() => setAddSwimButton(true)}
 			>
 				+
-			</button>
-			{!AddSwimmButton && (
-				<form onSubmit={AddSwimmer}>
-					<input
-						type="text"
-						name="lastname"
-						pattern="[A-Za-zА-ЯЁа-яё\s]{1,50}"
-						title={'Можно использовать A-z и А-я'}
-						maxLength={50}
-						value={lastname}
-						onChange={handleCangeLastname}
-						placeholder={!!props.enru ? 'Name' : 'ФИО участника'}
-						required
-					/>
-					{/* <input
+			</Button>
+			<Dialog
+				open={AddSwimmButton}
+				onClose={() => setAddSwimButton(false)}
+				role="alertdialog"
+				keepMounted
+			>
+				<DialogTitle sx={{ m: 0, p: 2 }}>Добавить участника</DialogTitle>
+				<IconButton
+					aria-label="close"
+					onClick={() => setAddSwimButton(false)}
+					sx={{ position: 'absolute', right: 8, top: 8 }}
+				>
+					<Close />
+				</IconButton>
+				<DialogContent dividers>
+					<form onSubmit={AddSwimmer}>
+						<input
+							style={{
+								padding: '3px',
+								border: '1px solid',
+								borderRadius: '5px',
+								width: '100%',
+								fontFamily: 'Arial',
+								boxSizing: 'border-box',
+								textAlign: 'center',
+								marginBottom: '0.3rem',
+							}}
+							type="text"
+							name="lastname"
+							pattern="[A-Za-zА-ЯЁа-яё\s]{1,50}"
+							title={'Можно использовать A-z и А-я'}
+							maxLength={50}
+							value={lastname}
+							onChange={handleCangeLastname}
+							placeholder={!!props.enru ? 'Name' : 'ФИО участника'}
+							required
+						/>
+						{/* <input
 						type="text"
 						name="firstname"
 						pattern="[A-Za-zА-ЯЁа-яё]{1,25}"
@@ -160,135 +193,186 @@ export default function AddSwimmerZ(props) {
 						onChange={handleCangeFirstname}
 						placeholder={!!props.enru ? 'Firstname' : 'Имя участника'}
 					/> */}
-					<input
-						type="text"
-						name="birthday"
-						value={birthday}
-						onChange={handleCangeBirthday}
-						placeholder={!!props.enru ? 'Birthday' : 'Дата рождения'}
-					/>
-					<input
-						type="text"
-						name="team"
-						pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,20}"
-						title={'Можно использовать A-z и А-я, символы: - , . ( )'}
-						maxLength={20}
-						value={team}
-						onChange={handleCangeTeam}
-						placeholder={!!props.enru ? 'Team' : 'Командa'}
-					/>
-					{cat === 'true' && gro === 'true' ? (
-						<></>
-					) : (
-						<>
-							<input
-								type="text"
-								name="category"
-								pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,20}"
-								title={'Можно использовать A-z и А-я, символы: - , . ( )'}
-								maxLength={20}
-								value={category}
-								onChange={handleCangeCategory}
-								placeholder={!!props.enru ? 'Category *' : 'Категория *'}
-							/>
-							<input
-								type="text"
-								name="group"
-								pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,20}"
-								title={'Можно использовать A-z и А-я, символы: - , . ( )'}
-								maxLength={20}
-								value={group}
-								onChange={handleCangeGroup}
-								placeholder={!!props.enru ? 'Group *' : 'Группа *'}
-							/>
-						</>
-					)}
+						<input
+							style={{
+								padding: '3px',
+								border: '1px solid',
+								borderRadius: '5px',
+								width: '100%',
+								fontFamily: 'Arial',
+								boxSizing: 'border-box',
+								textAlign: 'center',
+								marginBottom: '0.3rem',
+							}}
+							type="text"
+							name="birthday"
+							value={birthday}
+							onChange={handleCangeBirthday}
+							placeholder={!!props.enru ? 'Birthday' : 'Дата рождения'}
+						/>
+						<input
+							style={{
+								padding: '3px',
+								border: '1px solid',
+								borderRadius: '5px',
+								width: '100%',
+								fontFamily: 'Arial',
+								boxSizing: 'border-box',
+								textAlign: 'center',
+								marginBottom: '0.3rem',
+							}}
+							type="text"
+							name="team"
+							pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,20}"
+							title={'Можно использовать A-z и А-я, символы: - , . ( )'}
+							maxLength={20}
+							value={team}
+							onChange={handleCangeTeam}
+							placeholder={!!props.enru ? 'Team' : 'Командa'}
+						/>
+						{cat === 'true' && gro === 'true' ? (
+							<></>
+						) : (
+							<>
+								<input
+									style={{
+										padding: '3px',
+										border: '1px solid',
+										borderRadius: '5px',
+										width: '100%',
+										fontFamily: 'Arial',
+										boxSizing: 'border-box',
+										textAlign: 'center',
+										marginBottom: '0.3rem',
+									}}
+									type="text"
+									name="category"
+									pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,20}"
+									title={'Можно использовать A-z и А-я, символы: - , . ( )'}
+									maxLength={20}
+									value={category}
+									onChange={handleCangeCategory}
+									placeholder={!!props.enru ? 'Category *' : 'Категория *'}
+								/>
+								<input
+									style={{
+										padding: '3px',
+										border: '1px solid',
+										borderRadius: '5px',
+										width: '100%',
+										fontFamily: 'Arial',
+										boxSizing: 'border-box',
+										textAlign: 'center',
+										marginBottom: '0.3rem',
+									}}
+									type="text"
+									name="group"
+									pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,20}"
+									title={'Можно использовать A-z и А-я, символы: - , . ( )'}
+									maxLength={20}
+									value={group}
+									onChange={handleCangeGroup}
+									placeholder={!!props.enru ? 'Group *' : 'Группа *'}
+								/>
+							</>
+						)}
 
-					<pre>
-						<input
-							style={{
-								width: '23px',
-								textAlign: 'center',
-								border: '1px',
-								borderRadius: '5px',
-								fontFamily: 'Arial',
-							}}
-							ref={mmRef}
-							maxLength={2}
-							pattern="[0-9]*"
-							value={timeOther.mm}
-							onChange={(e) => handleCangeTimeOther('mm', e.target.value)}
-							placeholder="mm"
-							size={1}
-						/>
-						:
-						<input
-							style={{
-								width: '23px',
-								textAlign: 'center',
-								border: '1px',
-								borderRadius: '5px',
-								fontFamily: 'Arial',
-							}}
-							ref={ssRef}
-							maxLength={2}
-							pattern="[0-9]*"
-							value={timeOther.ss}
-							onChange={(e) => handleCangeTimeOther('ss', e.target.value)}
-							placeholder="ss"
-							size={1}
-						/>
-						.
-						<input
-							style={{
-								width: '23px',
-								textAlign: 'center',
-								border: '1px',
-								borderRadius: '5px',
-								fontFamily: 'Arial',
-							}}
-							ref={msRef}
-							maxLength={2}
-							pattern="[0-9]*"
-							value={timeOther.ms}
-							onChange={(e) => handleCangeTimeOther('ms', e.target.value)}
-							placeholder="ms"
-							size={1}
-						/>
-					</pre>
-					<input
-						name="idr"
-						min={0}
-						type="number"
-						placeholder="/⊥\"
-						value={idr}
-						onChange={(e) => setIdr(e.target.value)}
-						style={{ fontSize: '0.5rem', padding: '1px', width: '1.5rem' }}
-						required
-					/>
-					<input
-						name="idz"
-						min={1}
-						type="number"
-						placeholder="№"
-						value={idz}
-						onChange={(e) => setIdz(e.target.value)}
-						style={{ fontSize: '0.5rem', padding: '1px', width: '1.5rem' }}
-						required
-					/>
-					<button
-						type="submit"
-						style={{
-							color: 'darkgreen',
-							backgroundColor: 'white',
-							padding: '0px 2px px 2px',
-							borderRadius: '4px',
-						}}
-					>
-						{!isErr ? (!isLoading ? '+' : '=✈') : `${isErr}`}
-					</button>
-				</form>
-			)}
+						<pre style={{ textAlign: 'center' }}>
+							{props.data?.sportsmens[0].distance}:{' '}
+							<input
+								style={{
+									width: '23px',
+									textAlign: 'center',
+									border: '1px',
+									borderRadius: '5px',
+									fontFamily: 'Arial',
+								}}
+								ref={mmRef}
+								maxLength={2}
+								pattern="[0-9]*"
+								value={timeOther.mm}
+								onChange={(e) => handleCangeTimeOther('mm', e.target.value)}
+								placeholder="mm"
+								size={1}
+							/>
+							:
+							<input
+								style={{
+									width: '23px',
+									textAlign: 'center',
+									border: '1px',
+									borderRadius: '5px',
+									fontFamily: 'Arial',
+								}}
+								ref={ssRef}
+								maxLength={2}
+								pattern="[0-9]*"
+								value={timeOther.ss}
+								onChange={(e) => handleCangeTimeOther('ss', e.target.value)}
+								placeholder="ss"
+								size={1}
+							/>
+							.
+							<input
+								style={{
+									width: '23px',
+									textAlign: 'center',
+									border: '1px',
+									borderRadius: '5px',
+									fontFamily: 'Arial',
+								}}
+								ref={msRef}
+								maxLength={2}
+								pattern="[0-9]*"
+								value={timeOther.ms}
+								onChange={(e) => handleCangeTimeOther('ms', e.target.value)}
+								placeholder="ms"
+								size={1}
+							/>
+						</pre>
+						<pre style={{ textAlign: 'center' }}>
+							<input
+								name="idr"
+								min={0}
+								max={9}
+								type="number"
+								placeholder="/⊥\"
+								value={idr}
+								title="Установите номер ДОРОЖКИ и заплыва!"
+								onChange={(e) => setIdr(e.target.value)}
+								style={{ fontSize: '1rem', padding: '1px', width: '5rem' }}
+								required
+							/>
+							<input
+								name="idz"
+								min={1}
+								max={99}
+								type="number"
+								placeholder="№"
+								value={idz}
+								title="Установите номер ЗАПЛЫВА и дорожки!"
+								onChange={(e) => setIdz(e.target.value)}
+								style={{ fontSize: '1rem', padding: '1px', width: '5rem' }}
+								required
+							/>
+						</pre>
+						<DialogActions>
+							<Button onClick={() => setAddSwimButton(false)}>отмена</Button>
+							<Button
+								type="submit"
+								style={{
+									color: 'darkgreen',
+									backgroundColor: 'white',
+									padding: '0px 2px px 2px',
+									borderRadius: '4px',
+								}}
+							>
+								{!isErr ? (!isLoading ? 'добавить' : '=✈') : `${isErr}`}
+							</Button>
+						</DialogActions>
+					</form>
+				</DialogContent>
+			</Dialog>
 		</>
 	)
 }

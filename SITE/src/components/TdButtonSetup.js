@@ -1,9 +1,31 @@
 import { useState } from 'react'
 import { API_site } from '../API_URL'
+import {
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogTitle,
+	IconButton,
+	Menu,
+	MenuItem,
+	Tooltip,
+} from '@mui/material'
+import { BorderColor, Close } from '@mui/icons-material'
+import ModalDialogTd from './ModalDialogTd'
+
 //✔❗❌⚠⚙♻📲✈
 
 export default function TdButtonSetup(props) {
-	const [setupButton, setSetupButton] = useState(false)
+	// const [setupButton, setSetupButton] = useState(false)
+
+	const refForm = useRef(null)
+	const hendlSubmit = () => {
+		if (refForm.current) {
+			refForm.current.requestSubmit()
+		}
+		setModal(false)
+	}
 
 	const [inputR, setInputR] = useState({ idr: '', idz: '' })
 
@@ -165,6 +187,7 @@ export default function TdButtonSetup(props) {
 
 	const deleteUser = async (e) => {
 		e.preventDefault()
+		setDialog(false)
 		setIsLoadingD(true)
 		setIsErrD('')
 		try {
@@ -201,90 +224,211 @@ export default function TdButtonSetup(props) {
 		setIsLoadingD(false)
 	} //send delswim
 
+	const [anEL, setAnEL] = useState(null)
+	const hendlOpen = (event) => {
+		setAnEL(event.currentTarget)
+	}
+	const hendlClose = () => {
+		setAnEL(null)
+	}
+	const [dialog, setDialog] = useState(false)
+	const [modal, setModal] = useState(false)
+	const [translate, setTranslate] = useState(false)
+
 	return (
 		<>
-			<button
-				style={{
-					fontSize: '0.5rem',
-					backgroundColor: 'white',
-					padding: '1px',
-					borderRadius: '3px',
-				}}
-				onClick={() => setSetupButton((i) => !i)}
-			>
-				{!setupButton ? '⚙' : '✖'}
-			</button>
-			{!!setupButton && (
-				<div>
-					<button
-						onClick={setUserEmpty}
-						style={{
-							fontSize: '0.5rem',
-							backgroundColor: 'white',
-							padding: '1px',
-							borderRadius: '30%',
-							color: 'blue',
-						}}
+			<Tooltip arrow placement="top" title="Настройки участника">
+				<IconButton onClick={hendlOpen}>
+					<BorderColor style={{ fontSize: '1rem', color: 'black' }} />
+				</IconButton>
+			</Tooltip>
+			<Menu anchorEl={anEL} open={Boolean(anEL)} onClose={hendlClose}>
+				<MenuItem>
+					<Tooltip arrow placement="left" title="Обнулить время">
+						<Button
+							onClick={setUserEmpty}
+							style={{
+								backgroundColor: 'white',
+								padding: '1px',
+								borderRadius: '30%',
+								color: 'blue',
+							}}
+						>
+							<span>
+								{!isErrE ? (!isLoadingE ? '00:00.00' : '=✈') : `${isErrE}`}
+							</span>
+						</Button>
+					</Tooltip>
+				</MenuItem>
+				<MenuItem>
+					<Tooltip arrow placement="left" title="Дисквалификация">
+						<Button
+							onClick={setUserDSQ}
+							style={{
+								backgroundColor: 'white',
+								padding: '1px',
+								borderRadius: '3px',
+								color: 'black',
+							}}
+						>
+							{!isErrQ ? (!isLoadingQ ? 'DSQ' : '=✈') : `${isErrQ}`}
+						</Button>
+					</Tooltip>
+				</MenuItem>
+				<MenuItem>
+					<Tooltip arrow placement="left" title="Неявка">
+						<Button
+							onClick={setUserDNS}
+							style={{
+								backgroundColor: 'white',
+								padding: '1px',
+								borderRadius: '3px',
+								color: 'black',
+							}}
+						>
+							{!isErrN ? (!isLoadingN ? 'DNS' : '=✈') : `${isErrN}`}
+						</Button>
+					</Tooltip>
+				</MenuItem>
+				<MenuItem>
+					<Tooltip arrow placement="left" title="Обновить дорожку и заплыв">
+						<Button
+							onClick={() => setTranslate(true)}
+							style={{
+								backgroundColor: 'white',
+								borderRadius: '3px',
+								color: 'green',
+							}}
+						>
+							✈
+						</Button>
+					</Tooltip>
+					<Dialog
+						open={translate}
+						onClose={() => setTranslate(false)}
+						role="alertdialog"
+						keepMounted
 					>
-						{!isErrE ? (!isLoadingE ? '♻' : '=✈') : `${isErrE}`}
-					</button>
-					<button
-						onClick={setUserDSQ}
-						style={{
-							fontSize: '0.5rem',
-							backgroundColor: 'white',
-							padding: '1px',
-							borderRadius: '3px',
-						}}
-					>
-						{!isErrQ ? (!isLoadingQ ? 'DSQ' : '=✈') : `${isErrQ}`}
-					</button>
-					<button
-						onClick={setUserDNS}
-						style={{
-							fontSize: '0.5rem',
-							backgroundColor: 'white',
-							padding: '1px',
-							borderRadius: '3px',
-						}}
-					>
-						{!isErrN ? (!isLoadingN ? 'DNS' : '=✈') : `${isErrN}`}
-					</button>
+						<DialogTitle sx={{ m: 0, p: 2 }}>Переместить</DialogTitle>
+						<div style={{ textAlign: 'center' }}>
+							<input
+								name="idr"
+								value={inputR.idr}
+								onChange={handlChange}
+								onBlur={submitPoz}
+								min={0}
+								max={9}
+								title="Введите номер ДОРОЖКИ и заплыва куда переместить участника"
+								type="number"
+								placeholder="/⊥\"
+								style={{
+									fontSize: '1rem',
+									padding: '1px',
+									width: '5rem',
+								}}
+							/>
+							<input
+								name="idz"
+								value={inputR.idz}
+								onChange={handlChange}
+								onBlur={submitPoz}
+								min={1}
+								max={99}
+								type="number"
+								title="Введите номер ЗАПЛЫВА и дорожки куда переместить участника"
+								placeholder="№"
+								style={{
+									fontSize: '1rem',
+									padding: '1px',
+									width: '5rem',
+								}}
+							/>
+						</div>
+						<DialogActions>
+							<Button onClick={() => setTranslate(false)}>OK</Button>
+						</DialogActions>
+					</Dialog>
+				</MenuItem>
 
-					<input
-						name="idr"
-						value={inputR.idr}
-						onChange={handlChange}
-						onBlur={submitPoz}
-						min={0}
-						type="number"
-						placeholder="/⊥\"
-						style={{ fontSize: '0.5rem', padding: '1px', width: '1.5rem' }}
-					/>
+				<MenuItem>
+					<Tooltip arrow placement="left" title="Редактировать данные">
+						<Button
+							onClick={() => setModal(true)}
+							style={{
+								backgroundColor: 'white',
+								borderRadius: '3px',
+							}}
+						>
+							♻
+						</Button>
+					</Tooltip>
 
-					<input
-						name="idz"
-						value={inputR.idz}
-						onChange={handlChange}
-						onBlur={submitPoz}
-						min={1}
-						type="number"
-						placeholder="№"
-						style={{ fontSize: '0.5rem', padding: '1px', width: '1.5rem' }}
-					/>
-
-					<button
-						onClick={deleteUser}
-						style={{
-							fontSize: '0.5rem',
-							backgroundColor: 'white',
-							borderRadius: '3px',
-						}}
+					<Dialog
+						open={modal}
+						onClose={() => setModal(false)}
+						role="alertdialog"
+						keepMounted
 					>
-						{!isErrD ? (!isLoadingD ? '❌' : '=✈') : `${isErrD}`}
-					</button>
-				</div>
-			)}
+						<DialogTitle sx={{ m: 0, p: 2 }}>
+							Редактировать участника
+						</DialogTitle>
+						<IconButton
+							aria-label="close"
+							onClick={() => setModal(false)}
+							sx={{ position: 'absolute', right: 8, top: 8 }}
+						>
+							<Close />
+						</IconButton>
+						<DialogContent dividers>
+							<ModalDialogTd
+								item={props.item}
+								enru={props.enru}
+								refForm={refForm}
+								web={props.web}
+							/>
+						</DialogContent>
+						<DialogActions>
+							<Button onClick={() => setModal(false)}>отмена</Button>
+							<Button onClick={hendlSubmit} sx={{ color: 'darkgreen' }}>
+								сохранить
+							</Button>
+						</DialogActions>
+					</Dialog>
+				</MenuItem>
+
+				<MenuItem>
+					<Tooltip arrow placement="left" title="Удалить участника">
+						<Button
+							onClick={() => setDialog(true)}
+							style={{
+								fontSize: '0.5rem',
+								backgroundColor: 'white',
+								borderRadius: '3px',
+							}}
+						>
+							{!isErrD ? (!isLoadingD ? '❌' : '=✈') : `${isErrD}`}
+						</Button>
+					</Tooltip>
+					<Dialog
+						open={dialog}
+						onClose={() => setDialog(false)}
+						role="alertdialog"
+						keepMounted
+					>
+						<DialogContent>
+							<DialogTitle>
+								Вы уверены что хотите удалить {props.item.lastname} ?
+							</DialogTitle>
+						</DialogContent>
+						<DialogActions>
+							<Button onClick={() => setDialog(false)}>отмена</Button>
+							<Button onClick={deleteUser} sx={{ color: 'red' }}>
+								удалить
+							</Button>
+						</DialogActions>
+					</Dialog>
+				</MenuItem>
+			</Menu>
 		</>
 	)
 }

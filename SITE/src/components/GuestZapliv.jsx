@@ -18,8 +18,8 @@ export default function GuestZapliv(props) {
 				flexDirection: 'column',
 				alignItems: 'center',
 				justifyContent: 'center',
-				marginTop: '1rem',
 				margin: '2rem',
+				marginTop: '1rem',
 			}}
 		>
 			<div style={{ fontSize: '1.2rem' }}>{data?.setup?.NameCompitition}</div>

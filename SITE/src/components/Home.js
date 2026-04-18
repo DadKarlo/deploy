@@ -6,11 +6,24 @@ import PositionDistance from './PositionDistance'
 import ShowUserStart from './ShowUserStart'
 import ShowUserFinish from './ShowUserFinish'
 import { API_site } from '../API_URL'
+import {
+	Badge,
+	BottomNavigation,
+	BottomNavigationAction,
+	Box,
+} from '@mui/material'
+import { Groups, PersonAddAlt1, Pool, Settings } from '@mui/icons-material'
+import ShowZayvka from './ShowZayvka'
 //p {!!props.enru ? 'EN' : 'RU'}
 
 function Home(props) {
 	const [data, setDate] = useState([]) //ferst render
 	//const [sse, setSse] = useState(true)
+	useEffect(() => {
+		if (props.www) {
+			setDate(JSON.parse(props.www))
+		}
+	}, [props.www])
 
 	useEffect(() => {
 		if (data?.setup?.NameTitle) {
@@ -56,127 +69,201 @@ function Home(props) {
 	const [show, setShow] = useState(true)
 	const setshow = () => setShow((i) => !i)
 
+	const [menu, setMenu] = useState(0)
+
 	return (
 		<div className="App">
-			<button
-				onClick={setformSetup}
-				type="button"
-				style={{
-					border: '1px',
-					fontSize: '1.3rem',
-					width: '50%',
-					fontFamily: 'Arial',
-					backgroundColor: 'white',
-					textAlign: 'center',
-				}}
-			>
-				{!!props.enru ? 'Setting up Compitition' : 'Настройка Соревнований'}
-			</button>
-			{!!formSetup ? (
-				<>
-					<FormSetup
-						web={props.web}
-						www={props.www}
-						data={data}
-						enru={props.enru}
+			<Box>
+				<BottomNavigation
+					showLabels
+					value={menu}
+					onChange={(event, newValue) => {
+						setMenu(newValue)
+					}}
+					style={{ margin: '1rem' }}
+				>
+					<BottomNavigationAction
+						label={!!props.enru ? 'SwimStart' : 'SwimStart'}
+						icon={<Pool />}
+						style={{
+							color: 'black',
+							border: menu === 0 && '2px solid',
+							borderRadius: '5px',
+						}}
 					/>
-					<br />
-				</>
-			) : (
-				<div style={{}}> . . . </div>
-			)}
-
-			<button
-				onClick={setformUser}
-				type="button"
-				style={{
-					border: '1px',
-					fontSize: '1.3rem',
-					width: '50%',
-					fontFamily: 'Arial',
-					backgroundColor: 'white',
-					textAlign: 'center',
-				}}
-			>
-				{!!props.enru ? 'Registration of athletes' : 'Регистрация участника'}
-			</button>
-			{!!formUser ? (
-				<>
-					<FormUser web={props.web} enru={props.enru} />
-					<br />
-				</>
-			) : (
-				<div style={{}}> . . . </div>
-			)}
-
-			<button
-				onClick={setpositionDistance}
-				type="button"
-				style={{
-					border: '1px',
-					fontSize: '1.3rem',
-					width: '50%',
-					fontFamily: 'Arial',
-					backgroundColor: 'white',
-					textAlign: 'center',
-				}}
-			>
-				{!!props.enru
-					? 'Change the order of distances:'
-					: 'Порядок следования дистанций:'}
-			</button>
-			{!!positionDistance ? (
-				<>
-					<PositionDistance
-						web={props.web}
-						www={props.www}
-						data={data}
-						enru={props.enru}
+					<BottomNavigationAction
+						label={!!props.enru ? 'AppPeople' : 'Добавить'}
+						icon={<PersonAddAlt1 />}
+						style={{
+							color: 'black',
+							border: menu === 1 && '2px solid',
+							borderRadius: '5px',
+						}}
 					/>
+					<BottomNavigationAction
+						label={!!props.enru ? 'Settings' : 'Настройки'}
+						icon={<Settings />}
+						style={{
+							color: 'black',
+							border: menu === 2 && '2px solid',
+							borderRadius: '5px',
+						}}
+					/>
+					<BottomNavigationAction
+						label={!!props.enru ? 'Application' : 'Участники'}
+						icon={<Groups />}
+						style={{
+							color: 'black',
+							border: menu === 3 && '2px solid',
+							borderRadius: '5px',
+						}}
+					/>
+					<Badge
+						badgeContent={data?.zayvka?.length}
+						color="success"
+						overlap="circular"
+					></Badge>
+				</BottomNavigation>
+			</Box>
+			<div style={{ display: menu === 3 ? 'block' : 'none' }}>
+				<>
+					<ShowZayvka enru={props.enru} www={props.www} web={props.web} />
 					<br />
 				</>
-			) : (
-				<div style={{}}> . . . </div>
-			)}
+			</div>
+			<div style={{ display: menu === 2 ? 'block' : 'none' }}>
+				<>
+					<button
+						onClick={setformSetup}
+						type="button"
+						style={{
+							border: '1px',
+							fontSize: '1.3rem',
+							width: '50%',
+							fontFamily: 'Arial',
+							backgroundColor: 'white',
+							textAlign: 'center',
+						}}
+					>
+						{!!props.enru ? 'Setting up Compitition' : 'Настройка Соревнований'}
+					</button>
+					{!!formSetup ? (
+						<>
+							<FormSetup
+								web={props.web}
+								www={props.www}
+								data={data}
+								enru={props.enru}
+							/>
+							<br />
+						</>
+					) : (
+						<div style={{}}> . . . </div>
+					)}
 
-			<button
-				onClick={setshow}
-				type="button"
-				style={{
-					border: '1px',
-					fontSize: '1.3rem',
-					width: '50%',
-					fontFamily: 'Arial',
-					backgroundColor: 'white',
-					textAlign: 'center',
-					whiteSpace: 'pre-wrap',
-				}}
-			>
-				{!!show
-					? !!props.enru
-						? 'Start list'
-						: 'Стартовый протокол\n( Заплывы )'
-					: !!props.enru
-						? 'Result card'
-						: 'Итоговый протокол\n( Результаты )'}
-			</button>
-			<br />
-			{!!show ? (
-				<ShowUserStart
-					web={props.web}
-					www={props.www}
-					data={data}
-					enru={props.enru}
-				/>
-			) : (
-				<ShowUserFinish
-					web={props.web}
-					www={props.www}
-					data={data}
-					enru={props.enru}
-				/>
-			)}
-			<br />
+					<button
+						onClick={setpositionDistance}
+						type="button"
+						style={{
+							border: '1px',
+							fontSize: '1.3rem',
+							width: '50%',
+							fontFamily: 'Arial',
+							backgroundColor: 'white',
+							textAlign: 'center',
+						}}
+					>
+						{!!props.enru
+							? 'Change the order of distances:'
+							: 'Порядок следования дистанций:'}
+					</button>
+					{!!positionDistance ? (
+						<>
+							<PositionDistance
+								web={props.web}
+								www={props.www}
+								data={data}
+								enru={props.enru}
+							/>
+							<br />
+						</>
+					) : (
+						<div style={{}}> . . . </div>
+					)}
+					<br />
+				</>
+			</div>
+			<div style={{ display: menu === 1 ? 'block' : 'none' }}>
+				<>
+					<button
+						onClick={setformUser}
+						type="button"
+						style={{
+							border: '1px',
+							fontSize: '1.3rem',
+							width: '50%',
+							fontFamily: 'Arial',
+							backgroundColor: 'white',
+							textAlign: 'center',
+						}}
+					>
+						{!!props.enru
+							? 'Registration of athletes'
+							: 'Регистрация участника'}
+					</button>
+					{!!formUser ? (
+						<>
+							<FormUser web={props.web} enru={props.enru} />
+							<br />
+						</>
+					) : (
+						<div style={{}}> . . . </div>
+					)}
+					<br />
+				</>
+			</div>
+			<div style={{ display: menu === 0 ? 'block' : 'none' }}>
+				<>
+					<button
+						onClick={setshow}
+						type="button"
+						style={{
+							border: '1px',
+							fontSize: '1.3rem',
+							width: '50%',
+							fontFamily: 'Arial',
+							backgroundColor: 'white',
+							textAlign: 'center',
+							whiteSpace: 'pre-wrap',
+						}}
+					>
+						{!!show
+							? !!props.enru
+								? 'Start list'
+								: 'Стартовый протокол\n( Заплывы )'
+							: !!props.enru
+								? 'Result card'
+								: 'Итоговый протокол\n( Результаты )'}
+					</button>
+					<br />
+					{!!show ? (
+						<ShowUserStart
+							web={props.web}
+							www={props.www}
+							data={data}
+							enru={props.enru}
+						/>
+					) : (
+						<ShowUserFinish
+							web={props.web}
+							www={props.www}
+							data={data}
+							enru={props.enru}
+						/>
+					)}
+					<br />
+				</>
+			</div>
 		</div>
 	)
 }

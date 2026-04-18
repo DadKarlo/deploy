@@ -3,7 +3,6 @@ import { API_site } from '../API_URL'
 
 export default function ShowZayvka(props) {
 	const distanceEN = [
-		'Distance...',
 		'25 m Freestyle',
 		'50 m Freestyle',
 		'100 m Freestyle',
@@ -31,7 +30,6 @@ export default function ShowZayvka(props) {
 		'10 km',
 	] //distance
 	const distanceRU = [
-		'Дистанция...',
 		'25 м вольный стиль',
 		'50 м вольный стиль',
 		'100 м вольный стиль',

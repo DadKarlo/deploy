@@ -6,6 +6,7 @@ import TdTimeFinish from './TdTimeFinish'
 import AddSwimmerZ from './AddSwimmerZapliv'
 import TdInputTeam from './TdInputTeam'
 import { API_site } from '../API_URL'
+import { Button, Tooltip } from '@mui/material'
 
 export default function ShowUserStart(props) {
 	const [data, setDate] = useState(props.data) //ferst render
@@ -69,27 +70,38 @@ export default function ShowUserStart(props) {
 			<div style={{ fontSize: '0.7rem', marginBottom: '1.5rem' }}>
 				{data?.setup?.Info}
 			</div>
-			<button
-				style={{
-					padding: '1px',
-					backgroundColor: 'grey',
-					borderRadius: '5px',
-					margin: '2px',
-					color: 'white',
-					fontFamily: 'Arial',
-					fontStyle: 'normal',
-				}}
-				type="submit"
-				onClick={greenBazz}
+			<Tooltip
+				arrow
+				placement="bottom"
+				title="Системное распределение структуры заплыва. Если внесены изменения дорожек и заплывов, система изменит порядок на соответствующий времени участника."
 			>
-				{!isErrGB
-					? !isLoadingGB
-						? !!props.enru
-							? 'Updating the structure'
-							: 'обновить структуру'
-						: '=✈'
-					: `${isErrGB}`}
-			</button>
+				<Button
+					size="small"
+					sx={{
+						color: 'black',
+						backgroundColor: 'lightgrey',
+					}}
+					// style={{
+					// 	padding: '1px',
+					// 	backgroundColor: 'grey',
+					// 	borderRadius: '5px',
+					// 	margin: '2px',
+					// 	color: 'white',
+					// 	fontFamily: 'Arial',
+					// 	fontStyle: 'normal',
+					// }}
+					type="submit"
+					onClick={greenBazz}
+				>
+					{!isErrGB
+						? !isLoadingGB
+							? !!props.enru
+								? 'Updating the structure'
+								: 'обновить структуру'
+							: '=✈'
+						: `${isErrGB}`}
+				</Button>
+			</Tooltip>
 			{data?.sportsmens
 				?.filter(
 					(indids, indexs, selfs) =>
@@ -205,8 +217,9 @@ export default function ShowUserStart(props) {
 													.map((item) => (
 														<tr key={item.id}>
 															<td>{item.idr}</td>
-															<td>
-																<TdInput item={item} web={props.web} />
+															<td style={{ textAlign: 'left' }}>
+																{item.lastname} {item.firstname}
+																{/* <TdInput item={item} web={props.web} /> */}
 															</td>
 															{data?.setup?.ShowDate === 'true' && (
 																<td style={{ fontSize: '0.45rem' }}>
@@ -217,7 +230,8 @@ export default function ShowUserStart(props) {
 															{/* РАЗДЕЛИТЕЛЬ */}
 															{data?.setup?.ShowTeam === 'true' && (
 																<td style={{ fontSize: '0.45rem' }}>
-																	<TdInputTeam item={item} web={props.web} />
+																	{item.team}
+																	{/* <TdInputTeam item={item} web={props.web} /> */}
 																</td>
 															)}
 															<td style={{ fontSize: '0.5rem' }}> </td>
@@ -243,7 +257,12 @@ export default function ShowUserStart(props) {
 																)}
 															</td>
 															<td>
-																<TdButtonSetup item={item} web={props.web} />
+																<TdButtonSetup
+																	item={item}
+																	web={props.web}
+																	enru={props.enru}
+																/>
+																{/* <TdButtonSetup item={item} web={props.web} /> */}
 															</td>
 														</tr>
 													))}

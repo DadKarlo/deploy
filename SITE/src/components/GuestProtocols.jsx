@@ -24,6 +24,7 @@ export default function GuestProtocols(props) {
 				alignItems: 'center',
 				justifyContent: 'center',
 				margin: '2rem',
+				marginTop: '1rem',
 			}}
 		>
 			<div style={{ fontSize: '1.2rem' }}>{data?.setup?.NameCompitition}</div>
