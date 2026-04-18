@@ -265,6 +265,27 @@ app.post('/setname', (req, res) => {
 	res.status(201).json({ message: 'OK' })
 }) //Set User Name and Team
 
+app.post('/setuser', (req, res) => {
+	if (!req.body) return res.status(400).json({ error: 'Error 400' })
+	const id = req?.body?.id
+	const client = req?.body
+	const user = sport.find((i) => i.login === id)
+	const swimmer = user.sportsmens.find((i) => i.id === client.swimmer)
+
+	if (!swimmer) return res.status(400).json({ error: 'Error 400' })
+
+	swimmer.lastname = client.lastname
+	swimmer.birthday = client.birthday
+	swimmer.team = client.team
+	swimmer.sex = client.sex
+	swimmer.group = client.group
+	swimmer.category = client.category
+	swimmer.distance = client.distance
+	swimmer.TimeStart = client.TimeStart
+
+	res.status(201).json({ message: 'OK' })
+}) //SetUser
+
 app.post('/setpoz', (req, res) => {
 	if (!req.body) return res.status(400).json({ error: 'Error 400' })
 	const id = req?.body?.id
