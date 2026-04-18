@@ -278,7 +278,7 @@ export default function AddSwimmerZ(props) {
 						)}
 
 						<pre style={{ textAlign: 'center' }}>
-							{props.data?.sportsmens[0].distance}:{' '}
+							{props.itemD}:{' '}
 							<input
 								style={{
 									width: '23px',

@@ -6,13 +6,13 @@ export default function ModalDialogTd(props) {
 	const [lastname, setLastname] = useState(props.item.lastname)
 	const [birthday, setBirthday] = useState(props.item.birthday)
 	const [team, setTeam] = useState(props.item.team)
-	const [sex, setSex] = useState('Мужчины') //ranging
+	const [sex, setSex] = useState(props.item.sex) //ranging
 	const [category, setCategory] = useState(props.item.category) //ranging
 	const [group, setGroup] = useState(props.item.group) //ranging
 
-	useEffect(() => {
-		!!props.enru ? setSex(`Men`) : setSex('Мужчины')
-	}, [props.enru])
+	// useEffect(() => {
+	// 	!!props.enru ? setSex(`Men`) : setSex('Мужчины')
+	// }, [props.enru])
 
 	const [addist1, setAddist1] = useState(props.item.distance) //ranging
 	const [time1, setTime1] = useState({
