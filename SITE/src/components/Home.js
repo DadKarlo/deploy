@@ -11,6 +11,8 @@ import {
 	BottomNavigation,
 	BottomNavigationAction,
 	Box,
+	Collapse,
+	Alert,
 } from '@mui/material'
 import { Groups, PersonAddAlt1, Pool, Settings } from '@mui/icons-material'
 import ShowZayvka from './ShowZayvka'
@@ -60,19 +62,32 @@ function Home(props) {
 	}, []) //!!!SSE
 
 	const [formSetup, setFormSetup] = useState(true)
-	const setformSetup = () => setFormSetup((i) => !i)
+	// const setformSetup = () => setFormSetup((i) => !i)
+	const setformSetup = () => setFormSetup((i) => i)
 	const [formUser, setFormUser] = useState(true)
-	const setformUser = () => setFormUser((i) => !i)
+	// const setformUser = () => setFormUser((i) => !i)
+	const setformUser = () => setFormUser((i) => i)
 	const [positionDistance, setPositionDistance] = useState(true)
-	const setpositionDistance = () => setPositionDistance((i) => !i)
+	const setpositionDistance = () => setPositionDistance((i) => i)
+	// const setpositionDistance = () => setPositionDistance((i) => !i)
 
 	const [show, setShow] = useState(true)
 	const setshow = () => setShow((i) => !i)
 
 	const [menu, setMenu] = useState(0)
 
+	const [alertInfo, setAlertInfo] = useState(true)
+	setTimeout(() => {
+		setAlertInfo(false)
+	}, 5000)
+
 	return (
 		<div className="App">
+			<Collapse in={alertInfo} style={alertInfo && { margin: '1rem' }}>
+				<Alert onClose={() => setAlertInfo(false)}>
+					Интервал обновления данных занимает до 5 секунд.
+				</Alert>
+			</Collapse>
 			<Box>
 				<BottomNavigation
 					showLabels

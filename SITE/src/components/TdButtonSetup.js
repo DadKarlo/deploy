@@ -25,6 +25,7 @@ export default function TdButtonSetup(props) {
 			refForm.current.requestSubmit()
 		}
 		setModal(false)
+		hendlClose()
 	}
 
 	const [inputR, setInputR] = useState({ idr: '', idz: '' })
@@ -66,7 +67,8 @@ export default function TdButtonSetup(props) {
 			setIsErrE('✔')
 			setTimeout(() => {
 				setIsErrE('')
-			}, 1970)
+				hendlClose()
+			}, 1000)
 		} catch (error) {
 			// console.log(error)
 			setIsErrE('⚠!')
@@ -104,7 +106,8 @@ export default function TdButtonSetup(props) {
 			setIsErrQ('✔')
 			setTimeout(() => {
 				setIsErrQ('')
-			}, 1970)
+				hendlClose()
+			}, 1000)
 		} catch (error) {
 			// console.log(error)
 			setIsErrQ('⚠!')
@@ -142,7 +145,8 @@ export default function TdButtonSetup(props) {
 			setIsErrN('✔')
 			setTimeout(() => {
 				setIsErrN('')
-			}, 1970)
+				hendlClose()
+			}, 1000)
 		} catch (error) {
 			// console.log(error)
 			setIsErrN('⚠!')
@@ -179,6 +183,7 @@ export default function TdButtonSetup(props) {
 				}
 				// const result = await res.json()
 				// console.log(result)
+				hendlClose()
 			} catch (error) {
 				// console.log(error)
 			}
@@ -213,7 +218,8 @@ export default function TdButtonSetup(props) {
 			setIsErrD('✔')
 			setTimeout(() => {
 				setIsErrD('')
-			}, 1970)
+				hendlClose()
+			}, 1200)
 		} catch (error) {
 			// console.log(error)
 			setIsErrD('⚠!')

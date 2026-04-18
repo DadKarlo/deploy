@@ -37,7 +37,8 @@ function NoSEO() {
 
 function App() {
 	const [lenguageRU, setlenguageRU] = useState(false)
-	const set = () => setlenguageRU((i) => !i)
+	// const set = () => setlenguageRU((i) => !i)
+	const set = () => setlenguageRU((i) => i)
 
 	const adText = lenguageRU
 		? 'For your marketing. Email: swim.sport@mail.ru'
