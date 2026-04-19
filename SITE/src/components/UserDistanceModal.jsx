@@ -97,31 +97,35 @@ function UserDistanceModal(props) {
 				whiteSpace: 'nowrap',
 			}}
 		>
-			<select
-				style={{
-					border: '1px',
-					borderRadius: '5px',
-					fontFamily: 'Arial',
-					textAlign: 'center',
-					appearance: 'none',
-					width: '50%',
-					marginRight: '0.4rem',
-				}}
-				value={distant}
-				onChange={handleCangeDistant}
-			>
-				{!!props.enru
-					? distanceEN.map((use) => (
-							<option key={use.valueOf()} value={use.valueOf()}>
-								{use.valueOf()}
-							</option>
-						))
-					: distanceRU.map((use) => (
-							<option key={use.valueOf()} value={use.valueOf()}>
-								{use.valueOf()}
-							</option>
-						))}
-			</select>
+			{!distanceRU.includes(props.startdist) ? (
+				<span style={{ whiteSpace: 'normal' }}>{props.startdist}:</span>
+			) : (
+				<select
+					style={{
+						border: '1px',
+						borderRadius: '5px',
+						fontFamily: 'Arial',
+						textAlign: 'center',
+						appearance: 'none',
+						width: '50%',
+						marginRight: '0.4rem',
+					}}
+					value={distant}
+					onChange={handleCangeDistant}
+				>
+					{!!props.enru
+						? distanceEN.map((use) => (
+								<option key={use.valueOf()} value={use.valueOf()}>
+									{use.valueOf()}
+								</option>
+							))
+						: distanceRU.map((use) => (
+								<option key={use.valueOf()} value={use.valueOf()}>
+									{use.valueOf()}
+								</option>
+							))}
+				</select>
+			)}
 			<input
 				style={{
 					width: '23px',
