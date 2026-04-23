@@ -1,10 +1,15 @@
 import { useState } from 'react'
 import GuestProtocols from './GuestProtocols'
 import GuestZapliv from './GuestZapliv'
+import { Tooltip } from '@mui/material'
 
 export default function GuestButton(props) {
 	const [show, setShow] = useState(true)
 	const setshow = () => setShow((i) => !i)
+	const [info, setInfo] = useState(true)
+	setTimeout(() => {
+		setInfo(false)
+	}, 10000)
 
 	return (
 		<div style={{ width: '100%', fontFamily: 'Arial' }}>
@@ -23,13 +28,20 @@ export default function GuestButton(props) {
 					flexWrap: 'nowrap',
 				}}
 			>
-				{!show
-					? !!props.enru
-						? 'Start list'
-						: 'Стартовый протокол ( Заплывы )'
-					: !!props.enru
-						? 'Result card'
-						: 'Итоговый протокол ( Результаты )'}
+				<Tooltip
+					open={info}
+					arrow
+					placement="auto-start"
+					title="Нажмите кнопку протокол"
+				>
+					{!show
+						? !!props.enru
+							? 'Start list'
+							: 'Стартовый протокол ( Заплывы )'
+						: !!props.enru
+							? 'Result card'
+							: 'Итоговый протокол ( Результаты )'}
+				</Tooltip>
 			</button>
 			{!!show ? (
 				<GuestProtocols data={props.data} enru={props.enru} />

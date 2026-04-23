@@ -258,7 +258,7 @@ export default function ShowZayvka(props) {
 							justifyContent: 'center',
 						}}
 					>
-						<div>
+						<div style={{ whiteSpace: 'pre', overflowX: 'auto' }}>
 							{/*  */}
 							<button
 								style={{

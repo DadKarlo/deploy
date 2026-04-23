@@ -6,7 +6,7 @@ import TdTimeFinish from './TdTimeFinish'
 import AddSwimmerZ from './AddSwimmerZapliv'
 import TdInputTeam from './TdInputTeam'
 import { API_site } from '../API_URL'
-import { Button, Tooltip } from '@mui/material'
+import { Alert, Button, Tooltip } from '@mui/material'
 
 export default function ShowUserStart(props) {
 	const [data, setDate] = useState(props.data) //ferst render
@@ -102,6 +102,20 @@ export default function ShowUserStart(props) {
 						: `${isErrGB}`}
 				</Button>
 			</Tooltip>
+			<Alert
+				variant="outlined"
+				severity="info"
+				color="gray"
+				sx={{ fontSize: { xs: '0.7rem', sm: '0.8rem', md: '0.875rem' } }}
+				onClick={() =>
+					alert(
+						'Добавляя участника или внося изменения в настройки соревнований, программа автоматически выставляет заплыв и дорожку участника. \nОднако, если требуется избежать автоматизации, рекомендуется добавлять участника, нажимая «+» под каждой дистанцией в стартовом протоколе. При этом необходимо указать номер дорожки и заплыва, куда будет помещён участник. \nРедактировать участника ниже также возможно без изменения автоматической структуры.',
+					)
+				}
+			>
+				внесения изменений ниже (в заплывах) не влияют на автоматическое
+				перераспределение
+			</Alert>
 			{data?.sportsmens
 				?.filter(
 					(indids, indexs, selfs) =>
@@ -166,7 +180,13 @@ export default function ShowUserStart(props) {
 										>
 											{!!props.enru ? 'Heat' : 'Заплыв'} № {itemZ.idz}
 										</div>
-										<table>
+										<table
+											style={{
+												width: '100%',
+												maxWidth: '500px',
+												marginBottom: '10px',
+											}}
+										>
 											<thead>
 												<tr>
 													<th style={{ fontSize: '0.5rem' }}>

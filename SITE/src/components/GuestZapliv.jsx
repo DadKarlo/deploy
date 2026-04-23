@@ -79,7 +79,13 @@ export default function GuestZapliv(props) {
 										>
 											{!!props.enru ? 'Heat' : 'Заплыв'} № {itemZ.idz}
 										</div>
-										<table>
+										<table
+											style={{
+												width: '100%',
+												maxWidth: '500px',
+												marginBottom: '10px',
+											}}
+										>
 											<thead>
 												<tr>
 													<th style={{ fontSize: '0.5rem' }}>

@@ -11,7 +11,12 @@ import {
 	MenuItem,
 	Tooltip,
 } from '@mui/material'
-import { BorderColor, Close } from '@mui/icons-material'
+import {
+	BorderColor,
+	Close,
+	CompareArrowsRounded,
+	EditNoteRounded,
+} from '@mui/icons-material'
 import ModalDialogTd from './ModalDialogTd'
 
 //✔❗❌⚠⚙♻📲✈
@@ -306,7 +311,7 @@ export default function TdButtonSetup(props) {
 								color: 'green',
 							}}
 						>
-							✈
+							<CompareArrowsRounded />
 						</Button>
 					</Tooltip>
 					<Dialog
@@ -365,7 +370,7 @@ export default function TdButtonSetup(props) {
 								borderRadius: '3px',
 							}}
 						>
-							♻
+							<EditNoteRounded />
 						</Button>
 					</Tooltip>
 
