@@ -1,34 +1,66 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { API_site } from '../API_URL'
+import { DataGrid } from '@mui/x-data-grid'
+import { ruRU } from '@mui/x-data-grid/locales'
+import {
+	Alert,
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogTitle,
+	IconButton,
+} from '@mui/material'
+import ModalDialogTd from './ModalDialogTd'
+import { BorderColor, Close, Edit } from '@mui/icons-material'
+
+const colums = [
+	{ field: 'lastname', headerName: 'ФИО', width: 200 },
+	{ field: 'birthday', headerName: 'Дата рождения', width: 100 },
+	{ field: 'team', headerName: 'Команда', width: 100 },
+	{ field: 'sex', headerName: 'Пол', width: 100 },
+	{ field: 'distance', headerName: 'Дистанция', width: 100 },
+	{ field: 'category', headerName: 'Категория', width: 100 },
+	{ field: 'group', headerName: 'Группа', width: 70 },
+	{ field: 'TimeStart', headerName: 'Заявочное время', width: 100 },
+	{ field: 'TimeFinish', headerName: 'Результат', width: 100 },
+	{
+		field: 'Edit',
+		headerName: <BorderColor fontSize="small" />,
+		width: 30,
+		renderCell: (params) => <Edit fontSize="small" />,
+		sortable: false,
+	},
+]
 
 export default function ShowZayvka(props) {
-	const distanceEN = [
-		'25 m Freestyle',
-		'50 m Freestyle',
-		'100 m Freestyle',
-		'200 m Freestyle',
-		'400 m Freestyle',
-		'800 m Freestyle',
-		'1500 m Freestyle',
-		'25 m Backstroke',
-		'50 m Backstroke',
-		'100 m Backstroke',
-		'200 m Backstroke',
-		'25 m Breaststroke',
-		'50 m Breaststroke',
-		'100 m Breaststroke',
-		'200 m Breaststroke',
-		'25 m Butterfly',
-		'50 m Butterfly',
-		'100 m Butterfly',
-		'200 m Butterfly',
-		'100 m Individual Medley',
-		'200 m Individual Medley',
-		'400 m Individual Medley',
-		'3 km',
-		'5 km',
-		'10 km',
-	] //distance
+	// const distanceEN = [
+	// 	'25 m Freestyle',
+	// 	'50 m Freestyle',
+	// 	'100 m Freestyle',
+	// 	'200 m Freestyle',
+	// 	'400 m Freestyle',
+	// 	'800 m Freestyle',
+	// 	'1500 m Freestyle',
+	// 	'25 m Backstroke',
+	// 	'50 m Backstroke',
+	// 	'100 m Backstroke',
+	// 	'200 m Backstroke',
+	// 	'25 m Breaststroke',
+	// 	'50 m Breaststroke',
+	// 	'100 m Breaststroke',
+	// 	'200 m Breaststroke',
+	// 	'25 m Butterfly',
+	// 	'50 m Butterfly',
+	// 	'100 m Butterfly',
+	// 	'200 m Butterfly',
+	// 	'100 m Individual Medley',
+	// 	'200 m Individual Medley',
+	// 	'400 m Individual Medley',
+	// 	'3 km',
+	// 	'5 km',
+	// 	'10 km',
+	// ] //distance
 	const distanceRU = [
 		'25 м вольный стиль',
 		'50 м вольный стиль',
@@ -66,12 +98,23 @@ export default function ShowZayvka(props) {
 		setDataUser(JSON.parse(props.www)?.zayvka)
 	}, [props.www])
 
-	const handlChange = (id, field, value) => {
-		setDataUser((prevItem) =>
-			prevItem.map((item) =>
-				item.id === id ? { ...item, [field]: value } : item,
-			),
+	// const handlChange = (id, field, value) => {
+	// 	setDataUser((prevItem) =>
+	// 		prevItem.map((item) =>
+	// 			item.id === id ? { ...item, [field]: value } : item,
+	// 		),
+	// 	)
+	// } // №1
+
+	const handlChange = (newRow) => {
+		setDataUser((prevRows) =>
+			prevRows.map((row) => (row.id === newRow.id ? newRow : row)),
 		)
+		return newRow
+	} //  №2
+
+	const handlDelete = (id) => {
+		setDataUser((prev) => prev.filter((row) => row.id !== id))
 	}
 
 	const [isLoadingA, setIsLoadingA] = useState({})
@@ -92,10 +135,10 @@ export default function ShowZayvka(props) {
 						lastname: dataUser[swimID].lastname,
 						birthday: dataUser[swimID].birthday,
 						team: dataUser[swimID].team,
-						sex: dataUser[swimID].sex,
+						sex: dataUser[swimID].sex || ' ',
 						group: dataUser[swimID].group,
 						category: dataUser[swimID].category,
-						addistOther: dataUser[swimID].distance,
+						addistOther: dataUser[swimID].distance || '25 м вольный стиль',
 						timeOther: dataUser[swimID].TimeStart,
 						addist1: '',
 						addist2: '',
@@ -159,10 +202,8 @@ export default function ShowZayvka(props) {
 			setTimeout(() => {
 				setIsErrD((prev) => ({ ...prev, [r]: '' }))
 			}, 1970)
-			const swimID = dataUser.findIndex((swimm) => swimm.id === r)
-			if (swimID !== -1) {
-				dataUser.splice(swimID, 1)
-			}
+			// const swimID = dataUser.findIndex((swimm) => swimm.id === r)
+			handlDelete(r)
 		} catch (error) {
 			// console.log(error)
 			setIsErrD((prev) => ({ ...prev, [r]: '⚠!' }))
@@ -172,6 +213,37 @@ export default function ShowZayvka(props) {
 		}
 		setIsLoadingD((prev) => ({ ...prev, [r]: false }))
 	} //send zayvka
+
+	const deleteUser = async (e) => {
+		e.preventDefault()
+		setDialog(false)
+		modalSwimmerClose()
+		try {
+			const res = await fetch(API_site + '/delswim', {
+				method: 'POST',
+				body: JSON.stringify({
+					id: props.web,
+					idUser: modalRow.id,
+				}),
+				headers: { 'Content-type': 'application/json' },
+			})
+
+			if (!res.ok) {
+				alert(
+					'Данные не были удалены! \nПроверьте соединение с интернетом и повторите попытку! ',
+				)
+			}
+			// throw new Error('Ошибка сети или сервера')
+
+			// const result = await res.json()
+			// console.log(result)
+		} catch (error) {
+			// console.log(error)
+			alert(
+				'Данные не были удалены! \nПроверьте соединение с интернетом и повторите попытку! ',
+			)
+		}
+	} //send delswim
 
 	const sendForm = async (e) => {
 		e.preventDefault()
@@ -189,6 +261,148 @@ export default function ShowZayvka(props) {
 			await res.json()
 		} catch (error) {}
 		window.location.reload()
+	} //update form
+
+	const [widthZayvka, setWidthZayvka] = useState({
+		lastname: 200,
+		birthday: 100,
+		team: 100,
+		sex: 100,
+		distance: 150,
+		category: 100,
+		group: 100,
+		play: 100,
+	})
+	const changeWidthZayvka = (params) => {
+		setWidthZayvka((prev) => ({
+			...prev,
+			[params.colDef.field]: params.width,
+		}))
+	}
+
+	const columsZayvka = [
+		{
+			field: 'lastname',
+			headerName: 'ФИО',
+			width: widthZayvka.lastname,
+			editable: true,
+		},
+		{
+			field: 'birthday',
+			headerName: 'Дата рождения',
+			width: widthZayvka.birthday,
+			editable: true,
+		},
+		{
+			field: 'team',
+			headerName: 'Команда',
+			width: widthZayvka.team,
+			editable: true,
+		},
+		{
+			field: 'sex',
+			headerName: 'Пол',
+			width: widthZayvka.sex,
+			editable: true,
+			type: 'singleSelect',
+			valueOptions: ['Мужчины', 'Женщины', 'Девушки', 'Юноши', 'Другое'],
+			renderCell: (params) => {
+				if (params.value === null || params.value === '') {
+					return 'Другое'
+				}
+				return params.value
+			},
+		},
+		{
+			field: 'distance',
+			headerName: 'Дистанция',
+			width: widthZayvka.distance,
+			editable: true,
+			type: 'singleSelect',
+			valueOptions: distanceRU,
+			renderCell: (params) => {
+				if (params.value === null || params.value === '') {
+					return '25 м вольный стиль'
+				}
+				return params.value
+			},
+		},
+		{
+			field: 'category',
+			headerName: 'Категория',
+			width: widthZayvka.category,
+			editable: true,
+		},
+		{
+			field: 'group',
+			headerName: 'Группа',
+			width: widthZayvka.group,
+			editable: true,
+		},
+		{
+			field: 'play',
+			headerName: 'Действия',
+			width: widthZayvka.play,
+			renderCell: (params) => (
+				<div>
+					<Button
+						onClick={(e) => AddZayvka(params.row.id, e)}
+						sx={{
+							margin: '3px',
+							padding: 0,
+							width: 30,
+							minWidth: 'unset',
+							border: '1px solid darkgreen',
+							borderRadius: '5px',
+						}}
+					>
+						{!isErrA[params.row.id]
+							? !isLoadingA[params.row.id]
+								? '✔️'
+								: '=✈'
+							: `${isErrA[params.row.id]}`}
+					</Button>
+					<Button
+						onClick={(e) => deleteZayvka(params.row.id, e)}
+						sx={{
+							margin: '3px',
+							padding: 0,
+							width: 30,
+							minWidth: 'unset',
+							border: '1px solid darkred',
+							borderRadius: '5px',
+						}}
+					>
+						{!isErrD[params.row.id]
+							? !isLoadingD[params.row.id]
+								? '❌'
+								: '=✈'
+							: `${isErrD[params.row.id]}`}
+					</Button>
+				</div>
+			),
+		},
+	]
+
+	const refForm = useRef(null)
+	const hendlSubmit = () => {
+		if (refForm.current) {
+			refForm.current.requestSubmit()
+		}
+		modalSwimmerClose()
+	}
+
+	const [dialog, setDialog] = useState(false)
+	const [dialogUpdate, setDialogUpdate] = useState(false)
+	const [modal, setModal] = useState(false)
+	const [modalRow, setModalRow] = useState()
+	const modalSwimmerOpen = (params) => {
+		setModal(true)
+		setModalRow(params.row)
+	}
+	const modalSwimmerClose = (row) => {
+		setModal(false)
+		setModalRow(null)
 	}
 
 	return (
@@ -211,7 +425,12 @@ export default function ShowZayvka(props) {
 						data?.FormURL}
 				</a>
 				<button
-					onClick={sendForm}
+					onClick={() => setDialogUpdate(true)}
+					title={
+						!!props.enru
+							? '++'
+							: 'Для удаления старой (блокировка формы) и создания новой ссылки.'
+					}
 					style={{
 						border: '1px solid',
 						padding: '0px 3px',
@@ -225,12 +444,27 @@ export default function ShowZayvka(props) {
 					{!!props.enru ? 'update' : 'обновить'}
 				</button>
 			</h6>
-			{/* <h6 style={{ fontSize: '0.55rem' }}>
-				{!!props.enru
-					? '++'
-					: 'Обновите для удаления старой (блокировка формы) и создания новой ссылки.'}
-			</h6> */}
-			<button
+			<Dialog
+				open={dialogUpdate}
+				onClose={() => setDialogUpdate(false)}
+				role="alertdialog"
+				keepMounted
+			>
+				<DialogContent>
+					<DialogTitle>
+						Обновление ссылки для регистрации, заблокирует доступ к созданной
+						ранее форме, и создаст новую. Используйте эту функцию после
+						завершения дедлайна. Платформа перезагрузится.
+					</DialogTitle>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={() => setDialogUpdate(false)}>отмена</Button>
+					<Button onClick={sendForm} sx={{ color: 'green' }}>
+						обновить
+					</Button>
+				</DialogActions>
+			</Dialog>
+			<Button
 				onClick={() => setshowUser((i) => !i)}
 				style={{
 					marginTop: '0.3rem',
@@ -238,6 +472,8 @@ export default function ShowZayvka(props) {
 					fontSize: '1rem',
 					borderRadius: '5px',
 					width: '50%',
+					color: 'black',
+					height: '1.5rem',
 					fontFamily: 'Arial',
 					backgroundColor: 'white',
 					textAlign: 'center',
@@ -245,553 +481,161 @@ export default function ShowZayvka(props) {
 				}}
 			>
 				{showUser ? <>Открыть</> : <>Скрыть</>}
-			</button>
+			</Button>
 			{showUser ? (
-				<h5>У вас новых участников: {dataUser?.length}</h5>
+				<h5 style={{ margin: '0.8rem' }}>
+					У вас новых участников: {dataUser?.length}
+				</h5>
 			) : (
 				data && (
-					<div
-						style={{
-							margin: 'auto',
-							maxWidth: '700px',
-							transform: 'scale(0.9)',
-							justifyContent: 'center',
-						}}
-					>
-						<div style={{ whiteSpace: 'pre', overflowX: 'auto' }}>
-							{/*  */}
-							<button
-								style={{
-									padding: '1px',
-									border: '1px solid',
-									borderRadius: '5px',
-									backgroundColor: 'white',
-									whiteSpace: 'pre',
-									margin: '1px',
-								}}
-								onClick={() =>
-									setDataUser([
-										...dataUser.sort((a, d) =>
-											d.lastname.localeCompare(a.lastname, ['ru', 'en'], {
-												numeric: true,
-												sensitivity: 'base',
-												ignorePunctuation: true,
-											}),
-										),
-									])
-								}
-							>
-								{!!props.enru ? `Nane ⬇ ` : 'ФИО ⬇ '}
-							</button>
-							<button
-								style={{
-									padding: '1px',
-									border: '1px solid',
-									borderRadius: '5px',
-									backgroundColor: 'white',
-									whiteSpace: 'pre',
-								}}
-								onClick={() =>
-									setDataUser([
-										...dataUser.sort((a, d) =>
-											a.lastname.localeCompare(d.lastname, ['ru', 'en'], {
-												numeric: true,
-												sensitivity: 'base',
-												ignorePunctuation: true,
-											}),
-										),
-									])
-								}
-							>
-								{!!props.enru ? ` ⬆ ` : ' ⬆ '}
-							</button>
-							{/*  */}
-							<button
-								style={{
-									padding: '1px',
-									border: '1px solid',
-									borderRadius: '5px',
-									backgroundColor: 'white',
-									whiteSpace: 'pre',
-									margin: '1px',
-									marginLeft: '0.3rem',
-								}}
-								onClick={() =>
-									setDataUser([
-										...dataUser.sort((a, d) =>
-											d.birthday.localeCompare(a.birthday, ['ru', 'en'], {
-												numeric: true,
-												sensitivity: 'base',
-												ignorePunctuation: true,
-											}),
-										),
-									])
-								}
-							>
-								{!!props.enru ? `Date ⬇ ` : 'Дата ⬇ '}
-							</button>
-							<button
-								style={{
-									padding: '1px',
-									border: '1px solid',
-									borderRadius: '5px',
-									backgroundColor: 'white',
-									whiteSpace: 'pre',
-								}}
-								onClick={() =>
-									setDataUser([
-										...dataUser.sort((a, d) =>
-											a.birthday.localeCompare(d.birthday, ['ru', 'en'], {
-												numeric: true,
-												sensitivity: 'base',
-												ignorePunctuation: true,
-											}),
-										),
-									])
-								}
-							>
-								{!!props.enru ? ` ⬆ ` : ' ⬆ '}
-							</button>
-							{/*  */}
-							<button
-								style={{
-									padding: '1px',
-									border: '1px solid',
-									borderRadius: '5px',
-									backgroundColor: 'white',
-									whiteSpace: 'pre',
-									margin: '1px',
-									marginLeft: '0.3rem',
-								}}
-								onClick={() =>
-									setDataUser([
-										...dataUser.sort((a, d) =>
-											d.team.localeCompare(a.team, ['ru', 'en'], {
-												numeric: true,
-												sensitivity: 'base',
-												ignorePunctuation: true,
-											}),
-										),
-									])
-								}
-							>
-								{!!props.enru ? `Team ⬇ ` : 'Команда ⬇ '}
-							</button>
-							<button
-								style={{
-									padding: '1px',
-									border: '1px solid',
-									borderRadius: '5px',
-									backgroundColor: 'white',
-									whiteSpace: 'pre',
-								}}
-								onClick={() =>
-									setDataUser([
-										...dataUser.sort((a, d) =>
-											a.team.localeCompare(d.team, ['ru', 'en'], {
-												numeric: true,
-												sensitivity: 'base',
-												ignorePunctuation: true,
-											}),
-										),
-									])
-								}
-							>
-								{!!props.enru ? ` ⬆ ` : ' ⬆ '}
-							</button>
-							{/*  */}
-							<button
-								style={{
-									padding: '1px',
-									border: '1px solid',
-									borderRadius: '5px',
-									backgroundColor: 'white',
-									whiteSpace: 'pre',
-									margin: '1px',
-									marginLeft: '0.3rem',
-								}}
-								onClick={() =>
-									setDataUser([
-										...dataUser.sort((a, d) =>
-											d.sex.localeCompare(a.sex, ['ru', 'en'], {
-												numeric: true,
-												sensitivity: 'base',
-												ignorePunctuation: true,
-											}),
-										),
-									])
-								}
-							>
-								{!!props.enru ? `Sex ⬇ ` : 'Пол ⬇ '}
-							</button>
-							<button
-								style={{
-									padding: '1px',
-									border: '1px solid',
-									borderRadius: '5px',
-									backgroundColor: 'white',
-									whiteSpace: 'pre',
-								}}
-								onClick={() =>
-									setDataUser([
-										...dataUser.sort((a, d) =>
-											a.sex.localeCompare(d.sex, ['ru', 'en'], {
-												numeric: true,
-												sensitivity: 'base',
-												ignorePunctuation: true,
-											}),
-										),
-									])
-								}
-							>
-								{!!props.enru ? ` ⬆ ` : ' ⬆ '}
-							</button>
-							{/*  */}
-							<button
-								style={{
-									padding: '1px',
-									border: '1px solid',
-									borderRadius: '5px',
-									backgroundColor: 'white',
-									whiteSpace: 'pre',
-									margin: '1px',
-									marginLeft: '0.3rem',
-								}}
-								onClick={() =>
-									setDataUser([
-										...dataUser.sort((a, d) =>
-											d.distance.localeCompare(a.distance, ['ru', 'en'], {
-												numeric: true,
-												sensitivity: 'base',
-												ignorePunctuation: true,
-											}),
-										),
-									])
-								}
-							>
-								{!!props.enru ? `Distance ⬇ ` : 'Дистанция ⬇ '}
-							</button>
-							<button
-								style={{
-									padding: '1px',
-									border: '1px solid',
-									borderRadius: '5px',
-									backgroundColor: 'white',
-									whiteSpace: 'pre',
-								}}
-								onClick={() =>
-									setDataUser([
-										...dataUser.sort((a, d) =>
-											a.distance.localeCompare(d.distance, ['ru', 'en'], {
-												numeric: true,
-												sensitivity: 'base',
-												ignorePunctuation: true,
-											}),
-										),
-									])
-								}
-							>
-								{!!props.enru ? ` ⬆ ` : ' ⬆ '}
-							</button>
-							{/*  */}
-						</div>
-						<ol
-							style={{
-								width: '100%',
-								justifyContent: 'center',
-								border: '1px solid',
-								borderRadius: '5px',
+					<>
+						<Alert
+							variant="outlined"
+							severity="info"
+							color="gray"
+							sx={{
+								mx: { xs: '0rem', sm: '3rem', md: '10rem' },
+								fontSize: { xs: '0.7rem', sm: '0.8rem', md: '0.875rem' },
 							}}
 						>
-							{dataUser.map((item) => (
-								<li
-									key={item.id}
-									style={{
-										margin: '0.8rem',
-										marginLeft: '1.5rem',
-									}}
-								>
-									<div>
-										<input
-											style={{
-												padding: '3px',
-												border: '1px solid',
-												borderRadius: '5px',
-												width: '25%',
-												fontFamily: 'Arial',
-												boxSizing: 'border-box',
-												textAlign: 'center',
-											}}
-											type="text"
-											name="lastname"
-											pattern="[A-Za-zА-ЯЁа-яё\s]{1,50}"
-											title={'Можно использовать A-z и А-я'}
-											maxLength={50}
-											value={item.lastname}
-											placeholder={!!props.enru ? 'Name' : 'ФИО участника'}
-											required
-											onChange={(e) =>
-												handlChange(item.id, 'lastname', e.target.value)
-											}
-										></input>
-										<input
-											style={{
-												padding: '3px',
-												border: '1px solid',
-												borderRadius: '5px',
-												width: '25%',
-												fontFamily: 'Arial',
-												boxSizing: 'border-box',
-												textAlign: 'center',
-											}}
-											type="text"
-											name="birthday"
-											maxLength={20}
-											value={item.birthday}
-											placeholder={!!props.enru ? 'Birthday' : 'Дата рождения'}
-											onChange={(e) =>
-												handlChange(item.id, 'birthday', e.target.value)
-											}
-										></input>
-										<input
-											style={{
-												padding: '3px',
-												border: '1px solid',
-												borderRadius: '5px',
-												width: '25%',
-												fontFamily: 'Arial',
-												boxSizing: 'border-box',
-												textAlign: 'center',
-											}}
-											type="text"
-											name="team"
-											pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,20}"
-											title={'Можно использовать A-z и А-я, символы: - , . ( )'}
-											maxLength={20}
-											value={item.team}
-											placeholder={!!props.enru ? 'Team' : 'Командa'}
-											onChange={(e) =>
-												handlChange(item.id, 'team', e.target.value)
-											}
-										></input>
-										<button
-											onClick={(e) => AddZayvka(item.id, e)}
-											style={{
-												width: '7%',
-												padding: '3px',
-												border: '1px solid',
-												borderRadius: '5px',
-											}}
-										>
-											{!isErrA[item.id]
-												? !isLoadingA[item.id]
-													? '✔️'
-													: '=✈'
-												: `${isErrA[item.id]}`}
-										</button>
-										<button
-											onClick={(e) => deleteZayvka(item.id, e)}
-											style={{
-												width: '7%',
-												padding: '3px',
-												border: '1px solid',
-												borderRadius: '5px',
-											}}
-										>
-											{!isErrD[item.id]
-												? !isLoadingD[item.id]
-													? '❌'
-													: '=✈'
-												: `${isErrD[item.id]}`}
-										</button>
-									</div>
-									<div>
-										<select
-											style={{
-												padding: '3px',
-												border: '1px solid',
-												borderRadius: '5px',
-												width: '25%',
-												fontFamily: 'Arial',
-												boxSizing: 'border-box',
-												textAlign: 'center',
-											}}
-											value={item.sex}
-											onChange={(e) =>
-												handlChange(item.id, 'sex', e.target.value)
-											}
-										>
-											<option value={!!props.enru ? `Men` : 'Мужчины'}>
-												{!!props.enru ? `Men` : 'Мужчины'}
-											</option>
-											<option value={!!props.enru ? `Women` : 'Женщины'}>
-												{!!props.enru ? `Women` : 'Женщины'}
-											</option>
-											<option value={!!props.enru ? `Girls` : 'Девушки'}>
-												{!!props.enru ? `Girls` : 'Девушки'}
-											</option>
-											<option value={!!props.enru ? `Boys` : 'Юноши'}>
-												{!!props.enru ? `Boys` : 'Юноши'}
-											</option>
-											<option value={!!props.enru ? ` ` : ' '}>
-												{!!props.enru ? `Other` : 'Другое'}
-											</option>
-										</select>
-										<select
-											style={{
-												padding: '3px',
-												border: '1px solid',
-												borderRadius: '5px',
-												width: '25%',
-												fontFamily: 'Arial',
-												textAlign: 'center',
-												appearance: 'none',
-											}}
-											value={item.distance}
-											onChange={(e) =>
-												handlChange(item.id, 'distance', e.target.value)
-											}
-										>
-											{!!props.enru
-												? distanceEN.map((use) => (
-														<option key={use.valueOf()} value={use.valueOf()}>
-															{use.valueOf()}
-														</option>
-													))
-												: distanceRU.map((use) => (
-														<option key={use.valueOf()} value={use.valueOf()}>
-															{use.valueOf()}
-														</option>
-													))}
-										</select>
-										<input
-											style={{
-												padding: '3px',
-												border: '1px solid',
-												borderRadius: '5px',
-												width: '25%',
-												fontFamily: 'Arial',
-												boxSizing: 'border-box',
-												textAlign: 'center',
-											}}
-											type="text"
-											name="category"
-											pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,20}"
-											title={'Можно использовать A-z и А-я, символы: - , . ( )'}
-											maxLength={20}
-											value={item.category}
-											onChange={(e) =>
-												handlChange(item.id, 'category', e.target.value)
-											}
-											placeholder={!!props.enru ? 'Category' : 'Категория'}
-										></input>
-										<input
-											style={{
-												padding: '3px',
-												border: '1px solid',
-												borderRadius: '5px',
-												width: '25%',
-												fontFamily: 'Arial',
-												boxSizing: 'border-box',
-												textAlign: 'center',
-											}}
-											type="text"
-											name="group"
-											pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,20}"
-											title={'Можно использовать A-z и А-я, символы: - , . ( )'}
-											maxLength={20}
-											value={item.group}
-											onChange={(e) =>
-												handlChange(item.id, 'group', e.target.value)
-											}
-											placeholder={!!props.enru ? 'Group' : 'Группа'}
-										></input>
-									</div>
-								</li>
-							))}
-						</ol>
-					</div>
+							Вы можете редактировать данные. Добавляя участника (✔) пройдет
+							автоматическое перераспределение.
+						</Alert>
+						<DataGrid
+							sx={{
+								mx: { xs: '0rem', sm: '3rem', md: '10rem' },
+								border: '1px solid #121212',
+								borderRadius: '20px',
+								'.MuiDataGrid-columnHeaderTitle': {
+									fontFamily: 'Arial',
+									fontSize: '15px',
+									fontWeight: 'bold',
+								},
+								'.MuiDataGrid-cell': { borderBottom: '1px solid #121212' },
+								'.MuiDataGrid-columnHeaders': {
+									borderBottom: '2px solid #121212',
+									borderTop: '2px solid #121212',
+								},
+							}}
+							rows={dataUser}
+							columns={columsZayvka}
+							onColumnResize={changeWidthZayvka}
+							processRowUpdate={handlChange}
+							editMode="cell"
+							showToolbar
+							autoHeight
+							disableRowSelectionOnClick
+							disableColumnFilter
+							disableDensitySelector //???
+							hideFooter
+							localeText={{
+								...ruRU.components.MuiDataGrid.defaultProps.localeText,
+								noRowsLabel: 'Участников для регистрации нет.',
+							}}
+						/>
+					</>
 				)
 			)}
+			<hr style={{ margin: '1rem 8%' }} />
+			<h2 style={{ fontFamily: 'system-ui' }}>Спортсмены-участники</h2>
+			<br />
+			<Alert
+				variant="outlined"
+				severity="info"
+				color="gray"
+				sx={{
+					mx: { xs: '0rem', sm: '3rem', md: '10rem' },
+					fontSize: { xs: '0.7rem', sm: '0.8rem', md: '0.875rem' },
+				}}
+			>
+				Внесения изменений ниже не влияют на автоматическое перераспределение
+			</Alert>
+			<br />
+			<DataGrid
+				sx={{
+					mx: { xs: '0rem', sm: '3rem', md: '10rem' },
+					border: '1px solid #121212',
+					borderRadius: '20px',
+					'.MuiDataGrid-columnHeaderTitle': {
+						fontFamily: 'Arial',
+						fontSize: '15px',
+						fontWeight: 'bold',
+					},
+					'.MuiDataGrid-cell': { borderBottom: '1px solid #121212' },
+					'.MuiDataGrid-columnHeaders': {
+						borderBottom: '2px solid #121212',
+						borderTop: '2px solid #121212',
+					},
+				}}
+				rows={props.data?.sportsmens}
+				columns={colums}
+				showToolbar
+				disableColumnFilter
+				disableColumnSelector
+				disableDensitySelector //???
+				autoHeight
+				disableColumnMenu
+				disableRowSelectionOnClick
+				onRowClick={modalSwimmerOpen}
+				hideFooter
+				localeText={{
+					...ruRU.components.MuiDataGrid.defaultProps.localeText,
+					noRowsLabel: 'Участников нет.',
+				}}
+			/>
+			<Dialog
+				open={modal}
+				onClose={modalSwimmerClose}
+				role="alertdialog"
+				keepMounted
+			>
+				<DialogTitle sx={{ m: 0, p: 2 }}>Редактировать участника</DialogTitle>
+				<IconButton
+					aria-label="close"
+					onClick={modalSwimmerClose}
+					sx={{ position: 'absolute', right: 8, top: 8 }}
+				>
+					<Close />
+				</IconButton>
+				<DialogContent dividers>
+					{modalRow && (
+						<ModalDialogTd
+							item={modalRow}
+							enru={props.enru}
+							refForm={refForm}
+							web={props.web}
+						/>
+					)}
+				</DialogContent>
+				<DialogActions>
+					<Button
+						onClick={() => setDialog(true)}
+						sx={{ color: 'red', mr: 'auto' }}
+					>
+						удалить
+					</Button>
+					<Button onClick={modalSwimmerClose}>отмена</Button>
+					<Button onClick={hendlSubmit} sx={{ color: 'darkgreen' }}>
+						сохранить
+					</Button>
+				</DialogActions>
+			</Dialog>
+			<Dialog
+				open={dialog}
+				onClose={() => setDialog(false)}
+				role="alertdialog"
+				keepMounted
+			>
+				<DialogContent>
+					<DialogTitle>Вы уверены?</DialogTitle>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={() => setDialog(false)}>отмена</Button>
+					<Button onClick={deleteUser} sx={{ color: 'red' }}>
+						удалить
+					</Button>
+				</DialogActions>
+			</Dialog>
 		</div>
 	)
 }
-
-// {
-// 	"id": "dimon82-466dad",
-// 	"lastname": "'Дмитрий Щербаков'",
-// 	"birthday": "'08.04.1996'",
-// 	"team": "Одинцово",
-// 	"sex": "Мужчины",
-// 	"distance": "200 м комплекс",
-// 	"TimeStart": "001503",
-// 	"group": "",
-// 	"category": ""
-// }
-
-// <button onClick={() => setData([...data.sort((a, d) => a.id - d.id)])}>
-// 				idUP
-// 			</button>
-// 			<button onClick={() => setData([...data.sort((a, d) => d.id - a.id)])}>
-// 				idDOWN
-// 			</button>
-// 			<button
-// 				onClick={() =>
-// 					setData([
-// 						...data.sort((a, d) =>
-// 							a.name.localeCompare(d.name, ['ru', 'en'], {
-// 								numeric: true,
-// 								sensitivity: 'base',
-// 								ignorePunctuation: true,
-// 							}),
-// 						),
-// 					])
-// 				}
-// 			>
-// 				nameUP
-// 			</button>
-// <button
-// 	onClick={() =>
-// 		setData([
-// 			...data.sort((a, d) =>
-// 				d.name.localeCompare(a.name, ['ru', 'en'], {
-// 					numeric: true,
-// 					sensitivity: 'base',
-// 					ignorePunctuation: true,
-// 				}),
-// 			),
-// 		])
-// 	}
-// >
-// 	nameDOWN
-// </button>
-// 			<button
-// 				onClick={() =>
-// 					setData([
-// 						...data.sort((a, d) =>
-// 							a.age.localeCompare(d.age, ['ru', 'en'], {
-// 								numeric: true,
-// 								sensitivity: 'base',
-// 								ignorePunctuation: true,
-// 							}),
-// 						),
-// 					])
-// 				}
-// 			>
-// 				ageUP
-// 			</button>
-// 			<button
-// 				onClick={() =>
-// 					setData([
-// 						...data.sort((a, d) =>
-// 							d.age.localeCompare(a.age, ['ru', 'en'], {
-// 								numeric: true,
-// 								sensitivity: 'base',
-// 								ignorePunctuation: true,
-// 							}),
-// 						),
-// 					])
-// 				}
-// 			>
-// 				ageDOWN
-// 			</button>

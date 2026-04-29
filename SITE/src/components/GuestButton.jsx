@@ -16,7 +16,7 @@ export default function GuestButton(props) {
 			<button
 				onClick={setshow}
 				style={{
-					width: '100%',
+					width: '90%',
 					whiteSpace: 'pre',
 					textAlign: 'left',
 					border: '1px',

@@ -142,7 +142,12 @@ function Home(props) {
 			</Box>
 			<div style={{ display: menu === 3 ? 'block' : 'none' }}>
 				<>
-					<ShowZayvka enru={props.enru} www={props.www} web={props.web} />
+					<ShowZayvka
+						enru={props.enru}
+						www={props.www}
+						web={props.web}
+						data={data}
+					/>
 					<br />
 				</>
 			</div>
