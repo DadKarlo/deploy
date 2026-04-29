@@ -517,6 +517,22 @@ export default function ShowZayvka(props) {
 									borderTop: '2px solid #121212',
 								},
 							}}
+							slotProps={{
+								toolbar: {
+									csvOptions: {
+										utf8WithBom: true,
+										fields: [
+											'lastname',
+											'birthday',
+											'team',
+											'sex',
+											'distance',
+											'category',
+											'group',
+										],
+									},
+								},
+							}}
 							rows={dataUser}
 							columns={columsZayvka}
 							onColumnResize={changeWidthZayvka}
@@ -565,6 +581,24 @@ export default function ShowZayvka(props) {
 					'.MuiDataGrid-columnHeaders': {
 						borderBottom: '2px solid #121212',
 						borderTop: '2px solid #121212',
+					},
+				}}
+				slotProps={{
+					toolbar: {
+						csvOptions: {
+							utf8WithBom: true,
+							fields: [
+								'lastname',
+								'birthday',
+								'team',
+								'sex',
+								'distance',
+								'category',
+								'group',
+								'TimeStart',
+								'TimeFinish',
+							],
+						},
 					},
 				}}
 				rows={props.data?.sportsmens}
