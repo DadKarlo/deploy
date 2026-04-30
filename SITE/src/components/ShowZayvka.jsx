@@ -22,8 +22,33 @@ const colums = [
 	{ field: 'distance', headerName: 'Дистанция', width: 100 },
 	{ field: 'category', headerName: 'Категория', width: 100 },
 	{ field: 'group', headerName: 'Группа', width: 70 },
-	{ field: 'TimeStart', headerName: 'Заявочное время', width: 100 },
-	{ field: 'TimeFinish', headerName: 'Результат', width: 100 },
+	{
+		field: 'TimeStart',
+		headerName: 'Заявочное время',
+		width: 100,
+		valueGetter: (value) => {
+			if (value !== '000000') {
+				return `${value.slice(0, 2)}:${value.slice(2, 4)}.${value.slice(4, 6)}`
+			}
+			return 'NT'
+		},
+		align: 'center',
+	},
+	{
+		field: 'TimeFinish',
+		headerName: 'Результат',
+		width: 100,
+		valueGetter: (value) => {
+			if (value.length === 6) {
+				return `${value.slice(0, 2)}:${value.slice(2, 4)}.${value.slice(4, 6)}`
+			}
+			if (value === '') {
+				return 'o'
+			}
+			return value
+		},
+		align: 'center',
+	},
 	{
 		field: 'Edit',
 		headerName: <BorderColor fontSize="small" />,
