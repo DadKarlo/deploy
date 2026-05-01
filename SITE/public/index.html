@@ -32,7 +32,7 @@
 			content="Автоматизация соревнований по плаванию: распределение заплывов, протоколы, результаты в реальном времени. Удобно для организаторов и болельщиков."
 		/>
 		<meta property="og:url" content="https://swim-start.ru" />
-		<meta property="og:image" content="https://swim-start.ru/og-image.jpg" />
+		<meta property="og:image" content="https://swim-start.ru/og-image.png" />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
 		<meta property="og:image:type" content="image/jpeg" />
@@ -44,12 +44,22 @@
 		<script type="application/ld+json">
 			{
 				"@context": "https://schema.org",
-				"@type": "SportsOrganization",
+				"@type": "SoftwareApplication",
 				"name": "Competitive Swimming",
+				"applicationCategory": "SportsApplication",
+				"operatingSystem": "Web",
 				"url": "https://swim-start.ru",
-				"logo": "https://swim-start.ru/logo.png",
+				"logo": "https://swim-start.ru/og-image.png",
 				"description": "Современная система для автоматизации соревнований по плаванию: распределение заплывов, протоколы, результаты онлайн.",
-				"sport": "Swimming",
+				"offers": {
+					"@type": "Offer",
+					"price": "0",
+					"priceCurrency": "RUB"
+				},
+				"creator": {
+					"@type": "Organization",
+					"name": "Swim.Start"
+				},
 				"sameAs": ["https://t.me/swimsportru"]
 			}
 		</script>

@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /favicon.ico
+Disallow: /site.webmanifest
 
 # Запрещаем индексацию служебных путей
 Disallow: /api/
@@ -7,9 +9,23 @@ Disallow: /static/
 Disallow: /admin/
 Disallow: /node_modules/
 
+# Ограничение скорости сканирования (рекомендуется)
+Crawl-delay: 2
+
 # Карта сайта (указывается один раз, в конце)
 Sitemap: https://swim-start.ru/sitemap.xml
 
 # Правила для Яндекса
 User-agent: Yandex
-Host: https://swim-start.ru
+Allow: /
+Crawl-delay: 2
+
+# Правила для Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 2
+
+# Правила для Bing
+User-agent: bingbot
+Allow: /
+Crawl-delay: 2

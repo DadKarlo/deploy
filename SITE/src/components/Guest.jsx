@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import GuestButton from './GuestButton'
 import { API_site } from '../API_URL'
+import HelmetR from './HelmetR'
 
 function Guest(props) {
 	//sse подключить!!!
@@ -49,6 +50,12 @@ function Guest(props) {
 	return (
 		<>
 			<GuestButton data={data} enru={props.enru} />
+			<HelmetR
+				title={data?.setup?.NameTitle}
+				description={data?.setup?.Info}
+				image="https://swim-start.ru/og-image.png"
+				url={`https://swim-start.ru/${data?.setup?.URLCLIENT}`}
+			/>
 		</>
 	)
 }
