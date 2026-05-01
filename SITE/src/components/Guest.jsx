@@ -14,16 +14,6 @@ function Guest(props) {
 	}, [props.www])
 
 	useEffect(() => {
-		if (data?.setup?.NameTitle) {
-			if (data?.setup?.NameTitle !== ''.trim()) {
-				document.title = `${data?.setup?.NameTitle}`
-			}
-		} else {
-			document.title = 'Соревнования по плаванию | Competitive Swimming'
-		}
-	}, [data])
-
-	useEffect(() => {
 		//!!!
 		const user = new URL(document.URL)
 		const sse = new EventSource(API_site + `${user.pathname}`) //!!!SSE variant
