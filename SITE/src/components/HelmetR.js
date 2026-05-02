@@ -14,7 +14,7 @@ export default function HelmetR({ title, description, image, url }) {
 			<meta property="og:type" content="article" />
 
 			{/* Twitter Card */}
-			<meta name="twitter:card" content="summary_large_image" />
+			<meta name="twitter:card" content="summary" />
 			<meta name="twitter:title" content={title} />
 			<meta name="twitter:description" content={description} />
 			<meta name="twitter:image" content={image} />
