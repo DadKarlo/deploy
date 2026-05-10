@@ -20,7 +20,8 @@ import {
 	Pool,
 	Settings,
 	ViewTimeline,
-} from '@mui/icons-material'import ShowZayvka from './ShowZayvka'
+} from '@mui/icons-material'
+import ShowZayvka from './ShowZayvka'
 //p {!!props.enru ? 'EN' : 'RU'}
 
 function Home(props) {
