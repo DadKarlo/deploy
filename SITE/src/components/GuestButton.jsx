@@ -2,6 +2,7 @@ import { useState } from 'react'
 import GuestProtocols from './GuestProtocols'
 import GuestZapliv from './GuestZapliv'
 import { Tooltip } from '@mui/material'
+import { AvTimer, ViewTimeline } from '@mui/icons-material'
 
 export default function GuestButton(props) {
 	const [show, setShow] = useState(true)
@@ -43,6 +44,13 @@ export default function GuestButton(props) {
 							: 'Итоговый протокол ( Результаты )'}
 				</Tooltip>
 			</button>
+			<Tooltip arrow placement="left" title="Нормативы">
+				<div style={{ position: 'absolute', right: 10, top: 60 }}>
+					<a href="/evsk_2029.pdf" target="_blank" rel="noopener noreferrer">
+						<ViewTimeline fontSize="inherit" />
+					</a>
+				</div>
+			</Tooltip>
 			{!!show ? (
 				<GuestProtocols data={props.data} enru={props.enru} />
 			) : (

@@ -14,8 +14,13 @@ import {
 	Collapse,
 	Alert,
 } from '@mui/material'
-import { Groups, PersonAddAlt1, Pool, Settings } from '@mui/icons-material'
-import ShowZayvka from './ShowZayvka'
+import {
+	Groups,
+	PersonAddAlt1,
+	Pool,
+	Settings,
+	ViewTimeline,
+} from '@mui/icons-material'import ShowZayvka from './ShowZayvka'
 //p {!!props.enru ? 'EN' : 'RU'}
 
 function Home(props) {
@@ -88,6 +93,13 @@ function Home(props) {
 					Интервал обновления данных занимает до 5 секунд.
 				</Alert>
 			</Collapse>
+			<Tooltip arrow placement="left" title="Нормативы">
+				<div style={{ position: 'absolute', right: 7, top: 54 }}>
+					<a href="/evsk_2029.pdf" target="_blank" rel="noopener noreferrer">
+						<ViewTimeline fontSize="inherit" />
+					</a>
+				</div>
+			</Tooltip>
 			<Box>
 				<BottomNavigation
 					showLabels

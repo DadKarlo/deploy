@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Evsk from './Evsk'
 
 export default function GuestProtocols(props) {
 	const [data, setDate] = useState([]) //ferst render
@@ -7,6 +8,8 @@ export default function GuestProtocols(props) {
 			setDate(props.data)
 		}
 	}, [props.data])
+
+	const [poolMetrs, setPoolMetrs] = useState('25') // '25' or '50'
 
 	const plase = data?.setup?.DistancePosition.filter(
 		(person, index, self) =>
@@ -136,7 +139,7 @@ export default function GuestProtocols(props) {
 												.find((u) => u.TimeFinish !== '') && (
 												<table
 													style={{
-														width: '90%',
+														width: '100%',
 														maxWidth: '400px',
 														marginBottom: '10px',
 													}}
@@ -197,6 +200,14 @@ export default function GuestProtocols(props) {
 																		{item3.TimeFinish.slice(0, 2)}:
 																		{item3.TimeFinish.slice(2, 4)}.
 																		{item3.TimeFinish.slice(4, 6)}
+																	</td>
+																	<td style={{}}>
+																		<Evsk
+																			sex={item3.sex}
+																			pool={poolMetrs}
+																			distance={item3.distance}
+																			time={item3.TimeFinish}
+																		/>
 																	</td>
 																</tr>
 															))}
