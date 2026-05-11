@@ -74,7 +74,10 @@ export default function ButtonDSQ(props) {
 			>
 				<DialogContent>
 					<DialogTitle>Подтвердите действие</DialogTitle>
-					Дисквалификация участника полностью аннулирует результат спортсмена
+					Дисквалификация участника полностью аннулирует результат спортсмена{' '}
+					{props.item.distance}: {props.item.TimeFinish.slice(0, 2)}:
+					{props.item.TimeFinish.slice(2, 4)}.
+					{props.item.TimeFinish.slice(4, 6)}{' '}
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={() => setDialogUpdate(false)}>отмена</Button>
