@@ -9,13 +9,28 @@ export default function ShowUserFinish(props) {
 		}
 	}, [props.data])
 
-	const plase = data?.setup?.DistancePosition.filter(
+	const ollswimdata = data?.sportsmens?.filter(
 		(person, index, self) =>
 			index ===
 			self.findIndex(
 				(p) => p.distance === person.distance && p.sex === person.sex,
 			),
-	)
+	) //поиск уникальных значений для спортсменов добавленых вне структуры (пол, дистанция)
+
+	const disiswimdata = data?.setup?.DistancePosition?.filter(
+		(person, index, self) =>
+			index ===
+			self.findIndex(
+				(p) => p.distance === person.distance && p.sex === person.sex,
+			),
+	) //поиск уникальных значений для спортсменов добавленых в структуре (пол, дистанция)
+
+	const resOllPeople = ollswimdata?.filter(
+		(e) =>
+			!disiswimdata?.some((o) => o.distance === e.distance && o.sex === e.sex),
+	) //поиск уникальных значений для спортсменов без структуры  (пол, дистанция)
+
+	const plase = [...(disiswimdata || []), ...(resOllPeople || [])]
 
 	return (
 		<div
