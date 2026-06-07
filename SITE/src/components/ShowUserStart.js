@@ -77,18 +77,25 @@ export default function ShowUserStart(props) {
 				margin: '2rem',
 			}}
 		>
-			<pre style={{ fontSize: '1.2rem', fontFamily: 'Arial' }}>
+			<span
+				style={{
+					fontSize: '1.2rem',
+					fontFamily: 'Arial',
+					whiteSpace: 'pre-line',
+				}}
+			>
 				{data?.setup?.NameCompitition}
-			</pre>
-			<pre
+			</span>
+			<span
 				style={{
 					fontSize: '0.7rem',
 					marginBottom: '1.5rem',
 					fontFamily: 'Arial',
+					whiteSpace: 'pre-line',
 				}}
 			>
 				{data?.setup?.Info}
-			</pre>
+			</span>
 			<Tooltip
 				arrow
 				placement="bottom"
