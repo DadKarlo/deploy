@@ -1,10 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { API_site } from '../API_URL'
 
 function FormRoad(props) {
 	useEffect(() => {
 		if (props.data) {
 			props.setRoad(props.data?.setup?.Lines)
+			setPoolMetr(props.data?.setup?.poolMetr)
 		}
 	}, [props.data])
 
@@ -42,6 +43,30 @@ function FormRoad(props) {
 			// console.log(error)
 		}
 	}
+	const handleCangePoolMetr = async (e) => {
+		e.preventDefault()
+		setPoolMetr(e.target.value)
+		try {
+			const res = await fetch(API_site + '/setMetr', {
+				method: 'POST',
+				body: JSON.stringify({
+					id: props.web,
+					poolMetr: e.target.value,
+				}),
+				headers: { 'Content-type': 'application/json' },
+			})
+			if (!res.ok) {
+				throw new Error('Ошибка сети или сервера')
+			}
+			// const result = await res.json()
+
+			// console.log(result)
+		} catch (error) {
+			// console.log(error)
+		}
+	}
+
+	const [poolMetr, setPoolMetr] = useState()
 
 	const roadsRU = [
 		{
@@ -87,26 +112,46 @@ function FormRoad(props) {
 	]
 
 	return (
-		<select
-			style={{
-				padding: '3px',
-				border: '1px solid',
-				borderRadius: '5px',
-				width: '50%',
-				fontFamily: 'Arial',
-				boxSizing: 'border-box',
-				marginBottom: '0.4rem',
-				textAlign: 'center',
-			}}
-			value={props.road}
-			onChange={handleCangeRoad}
-		>
-			{roadsRU.map((road) => (
-				<option key={road.value} value={road.value}>
-					{road.read}
-				</option>
-			))}
-		</select>
+		<>
+			<select
+				style={{
+					padding: '3px',
+					border: '1px solid',
+					borderRadius: '5px',
+					width: '50%',
+					fontFamily: 'Arial',
+					boxSizing: 'border-box',
+					marginBottom: '0.4rem',
+					textAlign: 'center',
+				}}
+				value={props.road}
+				onChange={handleCangeRoad}
+			>
+				{roadsRU.map((road) => (
+					<option key={road.value} value={road.value}>
+						{road.read}
+					</option>
+				))}
+			</select>
+			<select
+				style={{
+					padding: '3px',
+					border: '1px solid',
+					borderRadius: '5px',
+					width: '50%',
+					fontFamily: 'Arial',
+					boxSizing: 'border-box',
+					marginBottom: '0.4rem',
+					textAlign: 'center',
+				}}
+				value={poolMetr}
+				onChange={handleCangePoolMetr}
+			>
+				<option value={'0'}>Нормативы отсутствуют в протоколах</option>
+				<option value={'25'}>Нормативы в бассейне: 25 метров</option>
+				<option value={'50'}>Нормативы в бассейне: 50 метров</option>
+			</select>
+		</>
 	)
 }
 

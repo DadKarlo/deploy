@@ -33,15 +33,16 @@ export default function Components(props) {
 				<>
 					<h6
 						style={{
-							position: 'absolute',
-							right: 0,
+							position: 'sticky',
 							fontFamily: 'Arial',
+							textAlign: 'right',
+							top: 0,
 						}}
 					>
 						{!!sse ? (
-							<>{!!props.enru ? '🟢 Online' : '🟢Подключено'}</>
+							<span>{!!props.enru ? '🟢 Online' : '🟢Подключено'}</span>
 						) : (
-							<>{!!props.enru ? '❌ Offline' : '❌ Нет сети'}</>
+							<span>{!!props.enru ? '❌ Offline' : '❌ Нет сети'}</span>
 						)}
 					</h6>
 					<Guest www={www} web={web} sse={setSse} enru={props.enru} />
@@ -51,6 +52,7 @@ export default function Components(props) {
 					<h4
 						style={{
 							position: 'absolute',
+							zIndex: 1,
 							left: 0,
 							whiteSpace: 'pre',
 							overflow: 'hidden',
@@ -71,12 +73,17 @@ export default function Components(props) {
 						{showuser ? '***' : `${web}`}
 					</h4>
 					<h6
-						style={{ position: 'absolute', right: 0, backgroundColor: 'white' }}
+						style={{
+							position: 'sticky',
+							textAlign: 'right',
+							top: 0,
+							// backgroundColor: 'white',
+						}}
 					>
 						{!!sse ? (
-							<>{!!props.enru ? '🟢 Online' : '🟢Подключено'}</>
+							<span>{!!props.enru ? '🟢 Online' : '🟢Подключено'}</span>
 						) : (
-							<>{!!props.enru ? '❌ Offline' : '❌ Нет сети'}</>
+							<span>{!!props.enru ? '❌ Offline' : '❌ Нет сети'}</span>
 						)}
 					</h6>
 					<br />

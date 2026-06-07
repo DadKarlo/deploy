@@ -23,6 +23,11 @@ function UserName(props) {
 		props.team(e.target.value)
 	}
 
+	const listTeam = props?.data?.sportsmens?.filter(
+		(person, index, self) =>
+			index === self.findIndex((p) => p.team === person.team),
+	)
+
 	return (
 		<div
 			style={{
@@ -45,7 +50,7 @@ function UserName(props) {
 				}}
 				type="text"
 				name="lastname"
-				pattern="[A-Za-zА-ЯЁа-яё\s]{1,50}"
+				pattern="[A-Za-zА-ЯЁа-яё0-9\s]{1,50}"
 				title={'Можно использовать A-z и А-я'}
 				maxLength={50}
 				value={lastname}
@@ -104,13 +109,19 @@ function UserName(props) {
 				}}
 				type="text"
 				name="team"
-				pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,20}"
+				list="datalistteam"
+				pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,50}"
 				title={'Можно использовать A-z и А-я, символы: - , . ( )'}
-				maxLength={20}
+				maxLength={50}
 				value={team}
 				onChange={handleCangeTeam}
 				placeholder={!!props.enru ? 'Team' : 'Командa'}
 			/>
+			<datalist id="datalistteam">
+				{listTeam?.map((item, index) => (
+					<option key={index} value={item.team} />
+				))}
+			</datalist>
 		</div>
 	) //???
 }

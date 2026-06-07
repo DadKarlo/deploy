@@ -55,7 +55,7 @@ function PositionDistance(props) {
 					marginLeft: 'auto',
 					marginRight: 'auto',
 					overflow: 'auto',
-					height: '7rem',
+					// height: '10rem',
 					resize: 'both',
 					width: '60%',
 				}}
@@ -80,6 +80,9 @@ function PositionDistance(props) {
 					</li>
 				))}
 			</ul>
+			<br />
+			<br />
+			<br />{' '}
 		</div>
 	)
 }

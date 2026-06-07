@@ -19,6 +19,16 @@ function UserRang(props) {
 		props.category(e.target.value)
 	}
 
+	const listGroup = props?.data?.sportsmens?.filter(
+		(person, index, self) =>
+			index === self.findIndex((p) => p.group === person.group),
+	)
+
+	const listCategory = props?.data?.sportsmens?.filter(
+		(person, index, self) =>
+			index === self.findIndex((p) => p.category === person.category),
+	)
+
 	return (
 		<div
 			style={{
@@ -71,15 +81,21 @@ function UserRang(props) {
 				}}
 				type="text"
 				name="category"
-				pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,20}"
+				list="datalistcategory"
+				pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,50}"
 				title={
 					'При необходимости разделить Участников в протоколах. Можно использовать A-z и А-я, символы: - , . ( )'
 				}
-				maxLength={20}
+				maxLength={50}
 				value={category}
 				onChange={handleCangeCategory}
 				placeholder={!!props.enru ? 'Category *' : 'Категория *'}
 			/>
+			<datalist id="datalistcategory">
+				{listCategory?.map((item, index) => (
+					<option key={index} value={item.category} />
+				))}
+			</datalist>
 			<input
 				style={{
 					padding: '3px',
@@ -93,15 +109,21 @@ function UserRang(props) {
 				}}
 				type="text"
 				name="group"
-				pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,20}"
+				list="datalistgroup"
+				pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,50}"
 				title={
 					'При необходимости разделить Участников в протоколах. Можно использовать A-z и А-я, символы: - , . ( )'
 				}
-				maxLength={20}
+				maxLength={50}
 				value={group}
 				onChange={handleCangeGroup}
 				placeholder={!!props.enru ? 'Group *' : 'Группа *'}
 			/>
+			<datalist id="datalistgroup">
+				{listGroup?.map((item, index) => (
+					<option key={index} value={item.group} />
+				))}
+			</datalist>
 		</div>
 	)
 }

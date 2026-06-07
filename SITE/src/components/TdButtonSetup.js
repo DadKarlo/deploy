@@ -10,6 +10,7 @@ import {
 	Menu,
 	MenuItem,
 	Tooltip,
+	Snackbar,
 } from '@mui/material'
 import {
 	BorderColor,
@@ -46,6 +47,7 @@ export default function TdButtonSetup(props) {
 
 	const setUserEmpty = async (e) => {
 		e.preventDefault()
+		hendlClose()
 		setIsLoadingE(true)
 		setIsErrE('')
 		try {
@@ -59,6 +61,9 @@ export default function TdButtonSetup(props) {
 				headers: { 'Content-type': 'application/json' },
 			})
 			if (!res.ok) {
+				alert(
+					'Данные не были изменены! \nПроверьте соединение с интернетом и повторите редактирование! ',
+				)
 				if (!res.ok) {
 					setIsErrE('⚠!')
 					setTimeout(() => {
@@ -74,7 +79,11 @@ export default function TdButtonSetup(props) {
 				setIsErrE('')
 				hendlClose()
 			}, 1000)
+			setOpenSnackbar(true)
 		} catch (error) {
+			alert(
+				'Данные не были изменены! \nПроверьте соединение с интернетом и повторите редактирование! ',
+			)
 			// console.log(error)
 			setIsErrE('⚠!')
 			setTimeout(() => {
@@ -85,6 +94,7 @@ export default function TdButtonSetup(props) {
 	} //send setswim
 	const setUserDSQ = async (e) => {
 		e.preventDefault()
+		hendlClose()
 		setIsLoadingQ(true)
 		setIsErrQ('')
 		try {
@@ -98,6 +108,9 @@ export default function TdButtonSetup(props) {
 				headers: { 'Content-type': 'application/json' },
 			})
 			if (!res.ok) {
+				alert(
+					'Данные не были изменены! \nПроверьте соединение с интернетом и повторите редактирование! ',
+				)
 				if (!res.ok) {
 					setIsErrQ('⚠!')
 					setTimeout(() => {
@@ -113,7 +126,11 @@ export default function TdButtonSetup(props) {
 				setIsErrQ('')
 				hendlClose()
 			}, 1000)
+			setOpenSnackbar(true)
 		} catch (error) {
+			alert(
+				'Данные не были изменены! \nПроверьте соединение с интернетом и повторите редактирование! ',
+			)
 			// console.log(error)
 			setIsErrQ('⚠!')
 			setTimeout(() => {
@@ -124,6 +141,7 @@ export default function TdButtonSetup(props) {
 	} //send setswim
 	const setUserDNS = async (e) => {
 		e.preventDefault()
+		hendlClose()
 		setIsLoadingN(true)
 		setIsErrN('')
 		try {
@@ -137,6 +155,9 @@ export default function TdButtonSetup(props) {
 				headers: { 'Content-type': 'application/json' },
 			})
 			if (!res.ok) {
+				alert(
+					'Данные не были изменены! \nПроверьте соединение с интернетом и повторите редактирование! ',
+				)
 				if (!res.ok) {
 					setIsErrN('⚠!')
 					setTimeout(() => {
@@ -152,7 +173,11 @@ export default function TdButtonSetup(props) {
 				setIsErrN('')
 				hendlClose()
 			}, 1000)
+			setOpenSnackbar(true)
 		} catch (error) {
+			alert(
+				'Данные не были изменены! \nПроверьте соединение с интернетом и повторите редактирование! ',
+			)
 			// console.log(error)
 			setIsErrN('⚠!')
 			setTimeout(() => {
@@ -189,6 +214,7 @@ export default function TdButtonSetup(props) {
 				// const result = await res.json()
 				// console.log(result)
 				hendlClose()
+				setOpenSnackbar(true)
 			} catch (error) {
 				// console.log(error)
 			}
@@ -197,6 +223,7 @@ export default function TdButtonSetup(props) {
 
 	const deleteUser = async (e) => {
 		e.preventDefault()
+		hendlClose()
 		setDialog(false)
 		setIsLoadingD(true)
 		setIsErrD('')
@@ -225,6 +252,7 @@ export default function TdButtonSetup(props) {
 				setIsErrD('')
 				hendlClose()
 			}, 1200)
+			setOpenSnackbar(true)
 		} catch (error) {
 			// console.log(error)
 			setIsErrD('⚠!')
@@ -246,14 +274,42 @@ export default function TdButtonSetup(props) {
 	const [modal, setModal] = useState(false)
 	const [translate, setTranslate] = useState(false)
 
+	const [openSnackbar, setOpenSnackbar] = useState(false)
+	const closeSnackbar = () => {
+		setOpenSnackbar(false)
+	}
+
 	return (
 		<>
+			<Snackbar
+				open={openSnackbar}
+				message="✔ Успешно! Дождитесь обновления!"
+				autoHideDuration={1000}
+				onClose={closeSnackbar}
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+				sx={{
+					'& .MuiSnackbarContent-root': {
+						display: 'block',
+						boxShadow: 'none',
+						color: 'white',
+						backgroundColor: 'green',
+						fontFamily: 'Arial',
+						fontSize: '12px',
+						textAlign: 'center',
+					},
+				}}
+			/>
 			<Tooltip arrow placement="top" title="Настройки участника">
 				<IconButton onClick={hendlOpen}>
 					<BorderColor style={{ fontSize: '1rem', color: 'black' }} />
 				</IconButton>
 			</Tooltip>
-			<Menu anchorEl={anEL} open={Boolean(anEL)} onClose={hendlClose}>
+			<Menu
+				anchorEl={anEL}
+				open={Boolean(anEL)}
+				onClose={hendlClose}
+				disableAutoFocus
+			>
 				<MenuItem>
 					<Tooltip arrow placement="left" title="Обнулить время">
 						<Button
@@ -265,9 +321,7 @@ export default function TdButtonSetup(props) {
 								color: 'blue',
 							}}
 						>
-							<span>
-								{!isErrE ? (!isLoadingE ? '00:00.00' : '=✈') : `${isErrE}`}
-							</span>
+							<span>00:00.00</span>
 						</Button>
 					</Tooltip>
 				</MenuItem>
@@ -282,7 +336,7 @@ export default function TdButtonSetup(props) {
 								color: 'black',
 							}}
 						>
-							{!isErrQ ? (!isLoadingQ ? 'DSQ' : '=✈') : `${isErrQ}`}
+							DSQ
 						</Button>
 					</Tooltip>
 				</MenuItem>
@@ -297,7 +351,7 @@ export default function TdButtonSetup(props) {
 								color: 'black',
 							}}
 						>
-							{!isErrN ? (!isLoadingN ? 'DNS' : '=✈') : `${isErrN}`}
+							DNS
 						</Button>
 					</Tooltip>
 				</MenuItem>
@@ -316,7 +370,10 @@ export default function TdButtonSetup(props) {
 					</Tooltip>
 					<Dialog
 						open={translate}
-						onClose={() => setTranslate(false)}
+						onClose={() => {
+							setTranslate(false)
+							hendlClose()
+						}}
 						role="alertdialog"
 						keepMounted
 					>
@@ -356,7 +413,14 @@ export default function TdButtonSetup(props) {
 							/>
 						</div>
 						<DialogActions>
-							<Button onClick={() => setTranslate(false)}>OK</Button>
+							<Button
+								onClick={() => {
+									setTranslate(false)
+									hendlClose()
+								}}
+							>
+								OK
+							</Button>
 						</DialogActions>
 					</Dialog>
 				</MenuItem>
@@ -376,7 +440,10 @@ export default function TdButtonSetup(props) {
 
 					<Dialog
 						open={modal}
-						onClose={() => setModal(false)}
+						onClose={() => {
+							setModal(false)
+							hendlClose()
+						}}
 						role="alertdialog"
 						keepMounted
 					>
@@ -385,7 +452,10 @@ export default function TdButtonSetup(props) {
 						</DialogTitle>
 						<IconButton
 							aria-label="close"
-							onClick={() => setModal(false)}
+							onClick={() => {
+								setModal(false)
+								hendlClose()
+							}}
 							sx={{ position: 'absolute', right: 8, top: 8 }}
 						>
 							<Close />
@@ -396,10 +466,18 @@ export default function TdButtonSetup(props) {
 								enru={props.enru}
 								refForm={refForm}
 								web={props.web}
+								data={props.data}
 							/>
 						</DialogContent>
 						<DialogActions>
-							<Button onClick={() => setModal(false)}>отмена</Button>
+							<Button
+								onClick={() => {
+									setModal(false)
+									hendlClose()
+								}}
+							>
+								отмена
+							</Button>
 							<Button onClick={hendlSubmit} sx={{ color: 'darkgreen' }}>
 								сохранить
 							</Button>

@@ -212,32 +212,6 @@ function FormInfo(props) {
 					marginBottom: '0.4rem',
 					textAlign: 'center',
 				}}
-				value={props.UseGroup}
-				onChange={handleCangeUseGroup}
-				name="UseGroup"
-			>
-				<option value={true}>
-					{props.enru
-						? 'Divide the races into groups'
-						: 'Разделять заплывы на группы'}
-				</option>
-				<option value={false}>
-					{props.enru
-						? 'Do not divide the races into groups'
-						: 'Не разделять заплывы на группы'}
-				</option>
-			</select>
-			<select
-				style={{
-					padding: '3px',
-					border: '1px solid',
-					borderRadius: '5px',
-					width: '50%',
-					fontFamily: 'Arial',
-					boxSizing: 'border-box',
-					marginBottom: '0.4rem',
-					textAlign: 'center',
-				}}
 				value={props.UseCategory}
 				onChange={handleCangeUseCategory}
 				name="UseCategory"
@@ -251,6 +225,32 @@ function FormInfo(props) {
 					{props.enru
 						? 'Do not divide the races into categories'
 						: 'Не разделять заплывы на категории'}
+				</option>
+			</select>
+			<select
+				style={{
+					padding: '3px',
+					border: '1px solid',
+					borderRadius: '5px',
+					width: '50%',
+					fontFamily: 'Arial',
+					boxSizing: 'border-box',
+					marginBottom: '0.4rem',
+					textAlign: 'center',
+				}}
+				value={props.UseGroup}
+				onChange={handleCangeUseGroup}
+				name="UseGroup"
+			>
+				<option value={true}>
+					{props.enru
+						? 'Divide the races into groups'
+						: 'Разделять заплывы на группы'}
+				</option>
+				<option value={false}>
+					{props.enru
+						? 'Do not divide the races into groups'
+						: 'Не разделять заплывы на группы'}
 				</option>
 			</select>
 			<select

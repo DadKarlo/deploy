@@ -247,7 +247,7 @@ function Home(props) {
 					</button>
 					{!!formUser ? (
 						<>
-							<FormUser web={props.web} enru={props.enru} />
+							<FormUser web={props.web} enru={props.enru} data={data} />
 							<br />
 						</>
 					) : (

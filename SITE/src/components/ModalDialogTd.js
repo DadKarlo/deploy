@@ -63,6 +63,21 @@ export default function ModalDialogTd(props) {
 		// setIsLoading(false)
 	}
 
+	const listTeam = props?.data?.sportsmens?.filter(
+		(person, index, self) =>
+			index === self.findIndex((p) => p.team === person.team),
+	)
+
+	const listGroup = props?.data?.sportsmens?.filter(
+		(person, index, self) =>
+			index === self.findIndex((p) => p.group === person.group),
+	)
+
+	const listCategory = props?.data?.sportsmens?.filter(
+		(person, index, self) =>
+			index === self.findIndex((p) => p.category === person.category),
+	)
+
 	return (
 		<form
 			ref={props.refForm}
@@ -83,14 +98,13 @@ export default function ModalDialogTd(props) {
 				}}
 				type="text"
 				name="lastname"
-				pattern="[A-Za-zА-ЯЁа-яё\s]{1,50}"
+				// pattern="[A-Za-zА-ЯЁа-яё0-9\s]{1,50}"
 				title={'Можно использовать A-z и А-я'}
 				maxLength={50}
 				value={lastname}
 				onChange={(e) => setLastname(e.target.value)}
 				placeholder={!!props.enru ? 'Name' : 'ФИО участника'}
-				required
-			></input>
+			/>
 			<input
 				style={{
 					padding: '3px',
@@ -104,11 +118,11 @@ export default function ModalDialogTd(props) {
 				}}
 				type="text"
 				name="birthday"
-				maxLength={20}
+				maxLength={50}
 				value={birthday}
 				onChange={(e) => setBirthday(e.target.value)}
 				placeholder={!!props.enru ? 'Birthday' : 'Дата рождения'}
-			></input>
+			/>
 			<input
 				style={{
 					padding: '3px',
@@ -122,13 +136,19 @@ export default function ModalDialogTd(props) {
 				}}
 				type="text"
 				name="team"
-				pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,20}"
+				list="datalistteam"
+				// pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,50}"
 				title={'Можно использовать A-z и А-я, символы: - , . ( )'}
-				maxLength={20}
+				maxLength={50}
 				onChange={(e) => setTeam(e.target.value)}
 				value={team}
 				placeholder={!!props.enru ? 'Team' : 'Командa'}
-			></input>
+			/>
+			<datalist id="datalistteam">
+				{listTeam?.map((item, index) => (
+					<option key={index} value={item.team} />
+				))}
+			</datalist>
 
 			<select
 				style={{
@@ -174,13 +194,19 @@ export default function ModalDialogTd(props) {
 				}}
 				type="text"
 				name="category"
-				pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,20}"
+				list="datalistcategory"
+				// pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,50}"
 				title={'Можно использовать A-z и А-я, символы: - , . ( )'}
-				maxLength={20}
+				maxLength={50}
 				value={category}
 				onChange={(e) => setCategory(e.target.value)}
 				placeholder={!!props.enru ? 'Category' : 'Категория'}
-			></input>
+			/>
+			<datalist id="datalistcategory">
+				{listCategory?.map((item, index) => (
+					<option key={index} value={item.category} />
+				))}
+			</datalist>
 			<input
 				style={{
 					padding: '3px',
@@ -194,13 +220,19 @@ export default function ModalDialogTd(props) {
 				}}
 				type="text"
 				name="group"
-				pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,20}"
+				list="datalistgroup"
+				// pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,50}"
 				title={'Можно использовать A-z и А-я, символы: - , . ( )'}
-				maxLength={20}
+				maxLength={50}
 				value={group}
 				onChange={(e) => setGroup(e.target.value)}
 				placeholder={!!props.enru ? 'Group' : 'Группа'}
-			></input>
+			/>
+			<datalist id="datalistgroup">
+				{listGroup?.map((item, index) => (
+					<option key={index} value={item.group} />
+				))}
+			</datalist>
 			<UserDistanceModal
 				startdist={addist1}
 				enru={props.enru}

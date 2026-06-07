@@ -84,6 +84,7 @@ export default function AddSwimmerZ(props) {
 
 	const AddSwimmer = async (e) => {
 		e.preventDefault()
+		setAddSwimButton(false)
 		setIsLoading(true)
 		setIsErr('')
 		try {
@@ -109,6 +110,9 @@ export default function AddSwimmerZ(props) {
 			})
 
 			if (!res.ok) {
+				alert(
+					'Данные не были изменены! \nПроверьте соединение с интернетом и повторите редактирование! ',
+				)
 				setIsErr('⚠!')
 				setTimeout(() => {
 					setIsErr('')
@@ -121,6 +125,9 @@ export default function AddSwimmerZ(props) {
 				setIsErr('')
 			}, 1970)
 		} catch (error) {
+			alert(
+				'Данные не были изменены! \nПроверьте соединение с интернетом и повторите редактирование! ',
+			)
 			// console.log(error)
 			setIsErr('⚠!')
 			setTimeout(() => {
@@ -129,6 +136,21 @@ export default function AddSwimmerZ(props) {
 		}
 		setIsLoading(false)
 	}
+
+	const listTeam = props?.data?.sportsmens?.filter(
+		(person, index, self) =>
+			index === self.findIndex((p) => p.team === person.team),
+	)
+
+	const listGroup = props?.data?.sportsmens?.filter(
+		(person, index, self) =>
+			index === self.findIndex((p) => p.group === person.group),
+	)
+
+	const listCategory = props?.data?.sportsmens?.filter(
+		(person, index, self) =>
+			index === self.findIndex((p) => p.category === person.category),
+	)
 
 	const [AddSwimmButton, setAddSwimButton] = useState(false)
 	//props
@@ -175,7 +197,7 @@ export default function AddSwimmerZ(props) {
 							}}
 							type="text"
 							name="lastname"
-							pattern="[A-Za-zА-ЯЁа-яё\s]{1,50}"
+							pattern="[A-Za-zА-ЯЁа-яё0-9\s]{1,50}"
 							title={'Можно использовать A-z и А-я'}
 							maxLength={50}
 							value={lastname}
@@ -223,13 +245,19 @@ export default function AddSwimmerZ(props) {
 							}}
 							type="text"
 							name="team"
-							pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,20}"
+							list="datalistteam"
+							pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,50}"
 							title={'Можно использовать A-z и А-я, символы: - , . ( )'}
-							maxLength={20}
+							maxLength={50}
 							value={team}
 							onChange={handleCangeTeam}
 							placeholder={!!props.enru ? 'Team' : 'Командa'}
 						/>
+						<datalist id="datalistteam">
+							{listTeam?.map((item, index) => (
+								<option key={index} value={item.team} />
+							))}
+						</datalist>
 						{cat === 'true' && gro === 'true' ? (
 							<></>
 						) : (
@@ -247,13 +275,19 @@ export default function AddSwimmerZ(props) {
 									}}
 									type="text"
 									name="category"
-									pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,20}"
+									list="datalistcategory"
+									pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,50}"
 									title={'Можно использовать A-z и А-я, символы: - , . ( )'}
-									maxLength={20}
+									maxLength={50}
 									value={category}
 									onChange={handleCangeCategory}
 									placeholder={!!props.enru ? 'Category *' : 'Категория *'}
 								/>
+								<datalist id="datalistcategory">
+									{listCategory?.map((item, index) => (
+										<option key={index} value={item.category} />
+									))}
+								</datalist>
 								<input
 									style={{
 										padding: '3px',
@@ -267,13 +301,19 @@ export default function AddSwimmerZ(props) {
 									}}
 									type="text"
 									name="group"
-									pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,20}"
+									list="datalistgroup"
+									pattern="[A-Za-zА-ЯЁа-яё0-9\s\-\.\,\(\)]{1,50}"
 									title={'Можно использовать A-z и А-я, символы: - , . ( )'}
-									maxLength={20}
+									maxLength={50}
 									value={group}
 									onChange={handleCangeGroup}
 									placeholder={!!props.enru ? 'Group *' : 'Группа *'}
 								/>
+								<datalist id="datalistgroup">
+									{listGroup?.map((item, index) => (
+										<option key={index} value={item.group} />
+									))}
+								</datalist>
 							</>
 						)}
 

@@ -22,10 +22,18 @@ export default function GuestZapliv(props) {
 				marginTop: '1rem',
 			}}
 		>
-			<div style={{ fontSize: '1.2rem' }}>{data?.setup?.NameCompitition}</div>
-			<div style={{ fontSize: '0.7rem', marginBottom: '1.5rem' }}>
+			<pre style={{ fontSize: '1.2rem', fontFamily: 'Arial' }}>
+				{data?.setup?.NameCompitition}
+			</pre>
+			<pre
+				style={{
+					fontSize: '0.7rem',
+					marginBottom: '1.5rem',
+					fontFamily: 'Arial',
+				}}
+			>
 				{data?.setup?.Info}
-			</div>
+			</pre>
 
 			{data?.sportsmens
 				?.filter(

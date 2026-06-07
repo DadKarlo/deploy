@@ -6,7 +6,15 @@ import TdTimeFinish from './TdTimeFinish'
 import AddSwimmerZ from './AddSwimmerZapliv'
 import TdInputTeam from './TdInputTeam'
 import { API_site } from '../API_URL'
-import { Alert, Button, Tooltip } from '@mui/material'
+import {
+	Alert,
+	Button,
+	Tooltip,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogTitle,
+} from '@mui/material'
 
 export default function ShowUserStart(props) {
 	const [data, setDate] = useState(props.data) //ferst render
@@ -53,7 +61,10 @@ export default function ShowUserStart(props) {
 			}, 1970)
 		}
 		setIsLoadingGB(false)
+		setDialogUpdate(false)
 	}
+
+	const [dialogUpdate, setDialogUpdate] = useState(false)
 
 	// console.log(data) //const zapliv = user.sportsmens.filter((u) => u.ids === i + 1)
 	return (
@@ -66,10 +77,18 @@ export default function ShowUserStart(props) {
 				margin: '2rem',
 			}}
 		>
-			<div style={{ fontSize: '1.2rem' }}>{data?.setup?.NameCompitition}</div>
-			<div style={{ fontSize: '0.7rem', marginBottom: '1.5rem' }}>
+			<pre style={{ fontSize: '1.2rem', fontFamily: 'Arial' }}>
+				{data?.setup?.NameCompitition}
+			</pre>
+			<pre
+				style={{
+					fontSize: '0.7rem',
+					marginBottom: '1.5rem',
+					fontFamily: 'Arial',
+				}}
+			>
 				{data?.setup?.Info}
-			</div>
+			</pre>
 			<Tooltip
 				arrow
 				placement="bottom"
@@ -81,17 +100,8 @@ export default function ShowUserStart(props) {
 						color: 'black',
 						backgroundColor: 'lightgrey',
 					}}
-					// style={{
-					// 	padding: '1px',
-					// 	backgroundColor: 'grey',
-					// 	borderRadius: '5px',
-					// 	margin: '2px',
-					// 	color: 'white',
-					// 	fontFamily: 'Arial',
-					// 	fontStyle: 'normal',
-					// }}
 					type="submit"
-					onClick={greenBazz}
+					onClick={() => setDialogUpdate(true)}
 				>
 					{!isErrGB
 						? !isLoadingGB
@@ -102,6 +112,27 @@ export default function ShowUserStart(props) {
 						: `${isErrGB}`}
 				</Button>
 			</Tooltip>
+			<Dialog
+				open={dialogUpdate}
+				onClose={() => setDialogUpdate(false)}
+				role="alertdialog"
+				keepMounted
+			>
+				<DialogContent>
+					<DialogTitle>
+						Если внесены изменения дорожек и заплывов, система изменит порядок
+						на соответствующий по времени участника.
+					</DialogTitle>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={() => setDialogUpdate(false)} sx={{ mr: 'auto' }}>
+						отмена
+					</Button>
+					<Button onClick={greenBazz} sx={{ color: 'orange' }}>
+						обновить
+					</Button>
+				</DialogActions>
+			</Dialog>
 			<Alert
 				variant="outlined"
 				severity="info"
@@ -281,6 +312,7 @@ export default function ShowUserStart(props) {
 																	item={item}
 																	web={props.web}
 																	enru={props.enru}
+																	data={props.data}
 																/>
 																{/* <TdButtonSetup item={item} web={props.web} /> */}
 															</td>

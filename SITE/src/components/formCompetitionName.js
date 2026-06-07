@@ -11,7 +11,7 @@ function FormCompetitionName(props) {
 
 	return (
 		<>
-			<input
+			<textarea
 				style={{
 					padding: '3px',
 					border: '1px solid',
@@ -22,9 +22,10 @@ function FormCompetitionName(props) {
 					margin: '0.4rem',
 					textAlign: 'center',
 				}}
-				type="text"
+				// type="text"
+				rows={1}
 				value={props.NameCompitition}
-				maxLength={100}
+				maxLength={200}
 				onChange={handleCangeNameCompitition}
 				name="NameCompitition"
 				placeholder={
@@ -44,13 +45,13 @@ function FormCompetitionName(props) {
 				}}
 				hidden
 				type="text"
-				maxLength={100}
+				maxLength={200}
 				value={props.NameTitle}
 				onChange={handleCangeNameTitle}
 				name="NameTitle"
 				placeholder={!!props.enru ? 'Title page name' : 'Название сайта'}
 			/>
-			<input
+			<textarea
 				style={{
 					padding: '3px',
 					border: '1px solid',
@@ -61,8 +62,9 @@ function FormCompetitionName(props) {
 					marginBottom: '0.4rem',
 					textAlign: 'center',
 				}}
-				type="text"
-				maxLength={100}
+				// type="text"
+				rows={1}
+				maxLength={1000}
 				value={props.Info}
 				onChange={handleCangeInfo}
 				name="Info"

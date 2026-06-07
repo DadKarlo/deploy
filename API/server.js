@@ -192,6 +192,25 @@ app.post('/setuproad', (req, res) => {
 	// console.log(client)
 	res.status(201).json({ message: 'OK' })
 }) //Lines
+app.post('/setMetr', (req, res) => {
+	if (!req.body) return res.status(400).json({ error: 'Error 400' })
+	const id = req?.body?.id
+	const client = req?.body
+	const user = sport.find((i) => i.login === id)
+
+	if (id === undefined) {
+		return res.status(400).json({ error: 'Error 400' })
+	} else {
+		if (client.poolMetr !== undefined) {
+			user.setup.poolMetr = client.poolMetr
+		}
+	}
+
+	// console.log(user)
+	// console.log(client)
+	res.status(201).json({ message: 'OK' })
+}) //Lines
+
 app.post('/setupgro', (req, res) => {
 	if (!req.body) return res.status(400).json({ error: 'Error 400' })
 	const id = req?.body?.id

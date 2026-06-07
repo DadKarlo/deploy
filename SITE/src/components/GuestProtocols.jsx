@@ -6,10 +6,11 @@ export default function GuestProtocols(props) {
 	useEffect(() => {
 		if (props.data) {
 			setDate(props.data)
+			setPoolMetrs(props.data?.setup?.poolMetr)
 		}
 	}, [props.data])
 
-	const [poolMetrs, setPoolMetrs] = useState('25') // '25' or '50'
+	const [poolMetrs, setPoolMetrs] = useState() // '25' or '50'
 
 	const ollswimdata = data?.sportsmens?.filter(
 		(person, index, self) =>
@@ -45,10 +46,18 @@ export default function GuestProtocols(props) {
 				marginTop: '1rem',
 			}}
 		>
-			<div style={{ fontSize: '1.2rem' }}>{data?.setup?.NameCompitition}</div>
-			<div style={{ fontSize: '0.7rem', marginBottom: '1.5rem' }}>
+			<pre style={{ fontSize: '1.2rem', fontFamily: 'Arial' }}>
+				{data?.setup?.NameCompitition}
+			</pre>
+			<pre
+				style={{
+					fontSize: '0.7rem',
+					marginBottom: '1.5rem',
+					fontFamily: 'Arial',
+				}}
+			>
 				{data?.setup?.Info}
-			</div>
+			</pre>
 			<>
 				{plase?.map((item1) => (
 					<div
@@ -193,12 +202,17 @@ export default function GuestProtocols(props) {
 															)
 															.filter((i) => i.TimeFinish.length === 6)
 															.sort((a, d) => a.TimeFinish - d.TimeFinish)
-															.map((item3, ind) => (
+															.map((item3, ind, arr) => (
 																<tr
 																	key={item3.id}
 																	style={{ fontSize: '0.5rem' }}
 																>
-																	<td>{ind + 1}</td>
+																	<td>
+																		{arr[ind - 1]?.TimeFinish ===
+																		item3?.TimeFinish
+																			? ' '
+																			: ind + 1}
+																	</td>
 																	<td style={{ textAlign: 'left' }}>
 																		{item3.lastname} {item3.firstname}
 																	</td>

@@ -663,6 +663,7 @@ export default function ShowZayvka(props) {
 							enru={props.enru}
 							refForm={refForm}
 							web={props.web}
+							data={props.data}
 						/>
 					)}
 				</DialogContent>

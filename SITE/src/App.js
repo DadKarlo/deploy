@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import Welcome from './components/Welcome'
 import './App.css'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Components from './components/Components'
 import AddZayvka from './components/AddZayvka'
+import { Divider, SwipeableDrawer, Tooltip } from '@mui/material'
+import { AdsClick } from '@mui/icons-material'
 
 // const url = new URL(document.URL)
 // console.log(url.pathname)
@@ -40,6 +42,8 @@ function App() {
 	// const set = () => setlenguageRU((i) => !i)
 	const set = () => setlenguageRU((i) => i)
 
+	const [shotInfo, setShotInfo] = useState(false)
+
 	const adText = lenguageRU
 		? 'For your marketing. Email: swim.sport@mail.ru'
 		: 'Место для вашей рекламы. Email: swim.sport@mail.ru'
@@ -53,9 +57,78 @@ function App() {
 					</a>
 				</div>
 			</div>
-			<button className="lang-toggle-btn" onClick={set}>
-				{!!lenguageRU ? 'RU' : 'EN'}
-			</button>
+			<Tooltip title="Меню информации">
+				<button className="lang-toggle-btn" onClick={() => setShotInfo(true)}>
+					<AdsClick color="red" />
+				</button>
+			</Tooltip>
+			<SwipeableDrawer
+				anchor="right"
+				open={shotInfo}
+				onClose={() => setShotInfo(false)}
+				onOpen={() => setShotInfo(true)}
+				sx={{ fontFamily: 'Arial', margin: '1rem' }}
+			>
+				<span style={{ margin: '20px' }}>
+					<a
+						href="/"
+						style={{
+							color: 'black',
+							textDecoration: 'none',
+						}}
+					>
+						<b>Главная страница</b>
+					</a>
+				</span>
+				<Divider />
+				<span style={{ margin: '10px 20px' }}>
+					<a
+						href="/evsk_2029.pdf"
+						target="_blank"
+						rel="noopener noreferrer"
+						style={{
+							color: 'black',
+							textDecoration: 'none',
+						}}
+					>
+						Нормативы
+					</a>
+				</span>
+				<span style={{ margin: '10px 20px' }}>
+					<a
+						href="/"
+						style={{
+							color: 'black',
+							textDecoration: 'none',
+						}}
+					>
+						Инструкция
+					</a>
+				</span>
+				<span style={{ margin: '10px 20px' }}>
+					<a
+						href="https://t.me/swimsportru"
+						style={{
+							color: 'black',
+							textDecoration: 'none',
+						}}
+					>
+						Помощь
+					</a>
+				</span>
+				<span style={{ margin: '10px 20px' }}>
+					<b>Контакты:</b>
+				</span>
+				<span style={{ margin: '5px 20px', fontSize: '0.9rem' }}>
+					<a href="mailto:swim.sport@mail.ru">Реклама</a>
+				</span>
+				<span style={{ margin: '5px 20px', fontSize: '0.9rem' }}>
+					<a href="">MAX</a>
+				</span>
+				<span style={{ margin: '5px 20px', fontSize: '0.9rem' }}>
+					<a href="https://t.me/swimsportru">Telegram</a>
+				</span>
+			</SwipeableDrawer>
 			<BrowserRouter>
 				<div>
 					<NoSEO />

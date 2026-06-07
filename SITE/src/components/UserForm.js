@@ -114,8 +114,10 @@ function FormUser(props) {
 				lastname={setLastname}
 				birthday={setBirthday}
 				team={setTeam}
+				data={props.data}
 			/>
 			<UserRang
+				data={props.data}
 				enru={props.enru}
 				sex={setSex}
 				group={setGroup}
@@ -167,7 +169,7 @@ function FormUser(props) {
 						borderRadius: '24px',
 						width: '50%',
 						color: 'white',
-						backgroundColor: 'green',
+						backgroundColor: 'blue',
 						fontFamily: 'Arial',
 						fontStyle: 'normal',
 						boxSizing: 'border-box',
@@ -192,7 +194,7 @@ function FormUser(props) {
 						borderColor: 'red',
 						width: '50%',
 						color: 'white',
-						backgroundColor: 'darkred',
+						backgroundColor: 'darkblue',
 						fontFamily: 'Arial',
 						fontStyle: 'normal',
 						boxSizing: 'border-box',
