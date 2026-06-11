@@ -82,6 +82,7 @@ export default function ShowUserStart(props) {
 					fontSize: '1.2rem',
 					fontFamily: 'Arial',
 					whiteSpace: 'pre-line',
+					wordBreak: 'break-word',
 				}}
 			>
 				{data?.setup?.NameCompitition}
@@ -92,6 +93,7 @@ export default function ShowUserStart(props) {
 					marginBottom: '1.5rem',
 					fontFamily: 'Arial',
 					whiteSpace: 'pre-line',
+					wordBreak: 'break-word',
 				}}
 			>
 				{data?.setup?.Info}

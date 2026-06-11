@@ -51,6 +51,7 @@ export default function GuestProtocols(props) {
 					fontSize: '1.2rem',
 					fontFamily: 'Arial',
 					whiteSpace: 'pre-line',
+					wordBreak: 'break-word',
 				}}
 			>
 				{data?.setup?.NameCompitition}
@@ -61,6 +62,7 @@ export default function GuestProtocols(props) {
 					marginBottom: '1.5rem',
 					fontFamily: 'Arial',
 					whiteSpace: 'pre-line',
+					wordBreak: 'break-word',
 				}}
 			>
 				{data?.setup?.Info}
