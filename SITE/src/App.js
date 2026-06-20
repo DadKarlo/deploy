@@ -71,7 +71,7 @@ function App() {
 			>
 				<span style={{ margin: '20px' }}>
 					<a
-						href="/"
+						href="https://swim-start.ru"
 						style={{
 							color: 'black',
 							textDecoration: 'none',
@@ -96,7 +96,9 @@ function App() {
 				</span>
 				<span style={{ margin: '10px 20px' }}>
 					<a
-						href="/"
+						href="/instruction.pdf"
+						target="_blank"
+						rel="noopener noreferrer"
 						style={{
 							color: 'black',
 							textDecoration: 'none',

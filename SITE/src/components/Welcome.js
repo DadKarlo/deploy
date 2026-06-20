@@ -102,7 +102,7 @@ export default function Welcome(props) {
 			<div style={{ height: '4rem' }} />
 			<div style={{ fontFamily: 'Arial', margin: '1rem' }}>
 				<a
-					href="/evsk_2029.pdf"
+					href="/instruction.pdf"
 					target="_blank"
 					rel="noopener noreferrer"
 					style={{
