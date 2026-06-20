@@ -46,7 +46,7 @@ function App() {
 
 	const adText = lenguageRU
 		? 'For your marketing. Email: swim.sport@mail.ru'
-		: 'Место для вашей рекламы. Email: swim.sport@mail.ru'
+		: 'Ваш собственный домен! Место для вашей рекламы. Email: swim.sport@mail.ru'
 
 	return (
 		<div className="App">
@@ -71,7 +71,7 @@ function App() {
 			>
 				<span style={{ margin: '20px' }}>
 					<a
-						href="/"
+						href="https://swim-start.ru/"
 						style={{
 							color: 'black',
 							textDecoration: 'none',
